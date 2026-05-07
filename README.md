@@ -1,4 +1,5 @@
 # Recipe-Browser
+
 An attempt at learning nextjs through a recipe browser app
 
 ## Plan for how I will approach this

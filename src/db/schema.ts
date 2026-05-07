@@ -1,11 +1,36 @@
-import { integer, pgTable, varchar, interval, jsonb } from "drizzle-orm/pg-core";
+import { integer, pgTable as table, varchar, interval, primaryKey } from "drizzle-orm/pg-core";
 
-export const recipesTable = pgTable("recipes", {
-    id: integer().primaryKey().generatedAlwaysAsIdentity(),
-    title: varchar().notNull(),
-    description: varchar().notNull(),
-    author: varchar().notNull(),
-    prepTime: interval({fields: 'hour to minute'}).notNull(),
-    cookTime: interval({fields: 'hour to minute'}).notNull(),
-    servings: integer().notNull(),
+export const recipes = table("recipes", {
+    id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+    title: varchar("title").notNull(),
+    slug: varchar("slug").notNull(),
+    description: varchar("description").notNull(),
+    author: varchar("author").notNull(),
+    prepTime: interval("prep_time", {fields: 'hour to minute'}).notNull(),
+    cookTime: interval("cook_time", {fields: 'hour to minute'}).notNull(),
+    servings: integer("servings").notNull(),
+})
+
+export const ingredients = table("ingredients", {
+    recipeId: integer("recipe_id").notNull()
+        .references(() => recipes.id),
+    position: integer("position").notNull(),
+    name: varchar("name").notNull(),
+    amount: varchar("amount").notNull()
+}, (table) => [
+    primaryKey({ columns: [table.recipeId, table.position] })
+])
+
+export const categories = table("categories", {
+    id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+    name: varchar("name").notNull(),
+    slug: varchar("slug").notNull(),
+    description: varchar("description").notNull(),
+})
+
+export const recipeCategories = table("recipe_categories", {
+    recipeId: integer("recipe_id").notNull()
+        .references(() => recipes.id),
+    categoryId: integer("category_id").notNull()
+        .references(() => categories.id)
 })
