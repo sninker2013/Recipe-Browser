@@ -3,8 +3,8 @@ import Link from "next/link"
 export function Nav() {
     return (
         <nav className="flex justify-evenly">
-            <Link href="/">Home</Link>
-            <Link href="/recipes">Recipes</Link>
+            <div className="hover:text-blue-400 hover:underline"><Link href="/">Home</Link></div>
+            <div className="hover:text-blue-400 hover:underline"><Link href="/recipes">Recipes</Link></div>
         </nav>
     )
 }
