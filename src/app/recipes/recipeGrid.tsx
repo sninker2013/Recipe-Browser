@@ -1,5 +1,5 @@
 import { Recipe } from "@/lib/db/schema"
-import { formatInterval } from "./formatInterval"
+import { formatInterval } from "../../lib/utils/formatInterval"
 
 export function RecipesDisplay({recipes}: {recipes: Recipe[]}) {
     const recipeItems: React.JSX.Element[] = []
