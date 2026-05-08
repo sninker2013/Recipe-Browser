@@ -1,6 +1,6 @@
 import { integer, pgTable as table, varchar, interval, primaryKey } from "drizzle-orm/pg-core";
 
-export const recipes = table("recipes", {
+export const recipesTable = table("recipes", {
     id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
     title: varchar("title").notNull(),
     slug: varchar("slug").notNull(),
@@ -11,9 +11,11 @@ export const recipes = table("recipes", {
     servings: integer("servings").notNull(),
 })
 
-export const ingredients = table("ingredients", {
+export type Recipe = typeof recipesTable.$inferSelect
+
+export const ingredientsTable = table("ingredients", {
     recipeId: integer("recipe_id").notNull()
-        .references(() => recipes.id),
+        .references(() => recipesTable.id),
     position: integer("position").notNull(),
     name: varchar("name").notNull(),
     amount: varchar("amount").notNull()
@@ -21,16 +23,20 @@ export const ingredients = table("ingredients", {
     primaryKey({ columns: [table.recipeId, table.position] })
 ])
 
-export const categories = table("categories", {
+export type Ingredient = typeof ingredientsTable.$inferSelect
+
+export const categoriesTable = table("categories", {
     id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
     name: varchar("name").notNull(),
     slug: varchar("slug").notNull(),
     description: varchar("description").notNull(),
 })
 
-export const recipeCategories = table("recipe_categories", {
+export type Category = typeof categoriesTable.$inferSelect
+
+export const recipeCategoriesTable = table("recipe_categories", {
     recipeId: integer("recipe_id").notNull()
-        .references(() => recipes.id),
+        .references(() => recipesTable.id),
     categoryId: integer("category_id").notNull()
-        .references(() => categories.id)
+        .references(() => categoriesTable.id)
 })
