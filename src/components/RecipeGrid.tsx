@@ -1,9 +1,11 @@
 import { Recipe } from "@/lib/db/schema"
 import { RecipeItem } from "./RecipeCard"
+import { getAllRecipes } from "@/lib/services/recipeService"
 
 // This is a component for displaying a grid of recipes.
-export default function RecipesDisplay({recipes}: {recipes: Recipe[]}) {
+export default async function RecipesGrid() {
     const recipeItems: React.JSX.Element[] = []
+    const recipes = await getAllRecipes()
 
     recipes.forEach((recipe: Recipe) => {
         recipeItems.push(<RecipeItem

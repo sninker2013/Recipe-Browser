@@ -1,12 +1,9 @@
-import Link from "next/link"
-import { getAllRecipes } from "@/lib/services/recipeService"
-import RecipesDisplay from "../../components/RecipeGrid"
+import RecipesGrid from "../../components/RecipeGrid"
 
 // This page displays all the recipes in a grid.
-export default async function RecipePage() {
-  const recipes = await getAllRecipes()
+export default function RecipePage() {
   return (<>
   <h2 className="text-center">Recipes</h2>
-  <RecipesDisplay recipes={recipes}></RecipesDisplay>
+  <RecipesGrid></RecipesGrid>
   </>)
 }

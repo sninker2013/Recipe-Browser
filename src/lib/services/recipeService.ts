@@ -1,6 +1,6 @@
 import { db } from "../db";
-import { recipesTable } from "../db/schema";
-import { eq } from "drizzle-orm";
+import { recipesTable, recipeCategoriesTable, Recipe } from "../db/schema";
+import { eq, inArray } from "drizzle-orm";
 
 /**
  * Gets all the recipes from the database.
@@ -19,4 +19,14 @@ export async function getRecipeBySlug(slug: string) {
     const recipe = await db.select().from(recipesTable)
     .where(eq(recipesTable.slug, slug))
     return recipe[0];
+}
+
+export async function getRecipesByCategory(categoryId: number): Promise<Recipe[]> {
+    const recipeCategories = await db.select().from(recipeCategoriesTable)
+    .where(eq(recipeCategoriesTable.categoryId, categoryId))
+
+    const recipeIds = recipeCategories.map(rc => rc.recipeId);
+
+    return await db.select().from(recipesTable)
+    .where(inArray(recipesTable.id, recipeIds));
 }

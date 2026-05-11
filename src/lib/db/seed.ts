@@ -1,12 +1,13 @@
 import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from "pg"
-import { categoriesTable, recipesTable, ingredientsTable, recipeCategoriesTable, directionsTable } from './schema';
+import { categoriesTable, recipesTable, ingredientsTable, recipeCategoriesTable, directionsTable, Recipe, Category } from './schema';
 
-import { categoryData } from './categoryData';
-import { recipeData } from './recipeData';
-import { ingredientData } from './ingredientData';
-import { directionData } from './directionData';
+import { categoryData, recipeCategoryData } from './data/categoryData';
+import { recipeData } from './data/recipeData';
+import { ingredientData } from './data/ingredientData';
+import { directionData } from './data/directionData';
+import { exit } from 'process';
 
 // Seed file made with help from: https://www.youtube.com/watch?v=n9rtLhMN3cc
 
@@ -24,12 +25,32 @@ async function seed() {
     await db.delete(directionsTable);
     await db.delete(recipesTable);
     
-    await db.insert(categoriesTable).values(categoryData);
-    await db.insert(recipesTable).values(recipeData);
+    const categories = await db.insert(categoriesTable).values(categoryData).returning();
+    const recipes = await db.insert(recipesTable).values(recipeData).returning();
     await db.insert(ingredientsTable).values(ingredientData);
     await db.insert(directionsTable).values(directionData);
+    await db.insert(recipeCategoriesTable).values(seedRecipeCategories(recipes, categories));
+
+
 
     console.log("Seeding complete!")
+    exit(0);
+}
+
+function seedRecipeCategories(recipes: Recipe[], categories: Category[]) {
+    const recipeCategories = [];
+    for (let i = 0; i < recipeCategoryData.length; i++) {
+        const recipeCategory = recipeCategoryData[i];
+        const recipe = recipes.find(r => r.slug === recipeCategory.recipeSlug);
+        const category = categories.find(c => c.slug === recipeCategory.categorySlug);
+        if (recipe && category) {
+            recipeCategories.push({
+                recipeId: recipe.id,
+                categoryId: category.id
+            });
+        }
+    }
+    return recipeCategories;
 }
 
 seed()

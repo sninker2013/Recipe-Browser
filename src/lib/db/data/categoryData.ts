@@ -6,3 +6,9 @@ export const categoryData = [
     { name: 'Vegetarian', slug: 'vegetarian', description: 'Plant-based recipes' },
     { name: 'Quick & Easy', slug: 'quick-easy', description: 'Under 30 minutes' },
 ]
+
+export const recipeCategoryData = [
+    { recipeSlug: 'spaghetti-carbonara', categorySlug: 'dinner' },
+    { recipeSlug: 'spaghetti-carbonara', categorySlug: 'quick-easy' },
+    { recipeSlug: 'chicken-tikka-masala', categorySlug: 'dinner' },
+]
