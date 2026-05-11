@@ -13,18 +13,6 @@ export const recipesTable = table("recipes", {
 
 export type Recipe = typeof recipesTable.$inferSelect
 
-export const ingredientsTable = table("ingredients", {
-    recipeId: integer("recipe_id").notNull()
-        .references(() => recipesTable.id),
-    position: integer("position").notNull(),
-    name: varchar("name").notNull(),
-    amount: varchar("amount").notNull()
-}, (table) => [
-    primaryKey({ columns: [table.recipeId, table.position] })
-])
-
-export type Ingredient = typeof ingredientsTable.$inferSelect
-
 export const categoriesTable = table("categories", {
     id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
     name: varchar("name").notNull(),
@@ -36,7 +24,19 @@ export type Category = typeof categoriesTable.$inferSelect
 
 export const recipeCategoriesTable = table("recipe_categories", {
     recipeId: integer("recipe_id").notNull()
-        .references(() => recipesTable.id),
+    .references(() => recipesTable.id),
     categoryId: integer("category_id").notNull()
         .references(() => categoriesTable.id)
 })
+
+export const ingredientsTable = table("ingredients", {
+    recipeSlug: varchar("recipe_slug").notNull()
+        .references(() => recipesTable.slug),
+    position: integer("position").notNull(),
+    name: varchar("name").notNull(),
+    amount: varchar("amount").notNull()
+}, (table) => [
+    primaryKey({ columns: [table.recipeSlug, table.position] })
+])
+
+export type Ingredient = typeof ingredientsTable.$inferSelect

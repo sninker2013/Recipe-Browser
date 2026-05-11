@@ -6,7 +6,8 @@ export async function getAllRecipes() {
     return await db.select().from(recipesTable);
 }
 
-export async function getRecipeBySlug(slug: string){
-    const result = await db.select().from(recipesTable).where(eq(recipesTable.slug, slug));
-    return result;
+export async function getRecipeBySlug(slug: string) {
+    const recipe = await db.select().from(recipesTable)
+    .where(eq(recipesTable.slug, slug))
+    return recipe[0];
 }

@@ -9,7 +9,7 @@ export function RecipesDisplay({recipes}: {recipes: Recipe[]}) {
         recipe={recipe}
         key={`${recipe.id}`}/>)
     })
-    return(<div className="grid md:grid-cols-2 lg:grid-cols-3">
+    return(<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
         {recipeItems}
     </div>)
 }

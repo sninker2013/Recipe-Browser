@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from "pg"
 import { categoriesTable, recipesTable, ingredientsTable, recipeCategoriesTable } from './schema';
-import { categoryData, recipeData } from './seedData';
+import { categoryData, recipeData, ingredientData } from './seedData';
 
 // Seed file made with help from: https://www.youtube.com/watch?v=n9rtLhMN3cc
 
@@ -19,8 +19,9 @@ async function seed() {
     await db.delete(ingredientsTable);
     await db.delete(recipesTable);
 
-    await db.insert(categoriesTable).values(categoryData);
-    await db.insert(recipesTable).values(recipeData)
+    await db.insert(categoriesTable).values(categoryData);;
+    await db.insert(recipesTable).values(recipeData).returning();
+    await db.insert(ingredientsTable).values(ingredientData);;
 
     console.log("Seeding complete!")
 }
