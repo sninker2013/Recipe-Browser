@@ -16,6 +16,7 @@ export default async function RecipePage({
     
     return(<>
         <h2 className="text-center m-5">{recipe.title}</h2>
+        <h3 className="text-center m-5 mt-2">By {recipe.author}</h3>
         <p className="m-5">{recipe.description}</p>
         <div className="flex justify-around">
             <div className="flex flex-col justify-between text-center border-2 border-gray-300 p-7 m-3 rounded-xl gap-4">
