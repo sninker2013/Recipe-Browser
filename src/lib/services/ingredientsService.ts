@@ -10,5 +10,6 @@ import { eq } from "drizzle-orm";
 export async function getIngredientsByRecipeSlug(recipeSlug: string){
     const ingredients = await db.select().from(ingredientsTable)
     .where(eq(ingredientsTable.recipeSlug, recipeSlug))
+    ingredients.sort((a, b) => a.position - b.position)
     return ingredients;
 }

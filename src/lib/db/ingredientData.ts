@@ -3,15 +3,15 @@
 export const ingredientData = [
   {
     recipeSlug: "spaghetti-carbonara",
-    position: 1,
-    name: "spaghetti",
-    amount: "400g"
-  },
-  {
-    recipeSlug: "spaghetti-carbonara",
     position: 2,
     name: "pancetta, diced",
     amount: "150g"
+  },
+  {
+    recipeSlug: "spaghetti-carbonara",
+    position: 1,
+    name: "spaghetti",
+    amount: "400g"
   },
   {
     recipeSlug: "spaghetti-carbonara",

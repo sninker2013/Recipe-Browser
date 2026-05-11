@@ -370,19 +370,19 @@ Never commit `.env.local` to version control.
 Use this checklist to track your progress toward completing the minimum viable product:
 
 ### Infrastructure & Setup
-- [ ] Project initialized with Next.js and TypeScript
-- [ ] Database connected and schema created
-- [ ] Migrations run successfully
-- [ ] Categories seeded in database
-- [ ] Environment variables configured
-- [ ] Development server runs without errors
+- [/] Project initialized with Next.js and TypeScript
+- [/] Database connected and schema created
+- [/] Migrations run successfully
+- [/] Categories seeded in database
+- [/] Environment variables configured
+- [/] Development server runs without errors
 
 ### Public Recipe Features
-- [ ] Home page displays
-- [ ] Recipe list page shows all recipes from database
-- [ ] Recipe detail page displays complete recipe information
-- [ ] Ingredients display in correct order
-- [ ] Directions display in sequential order
+- [/] Home page displays
+- [/] Recipe list page shows all recipes from database
+- [/] Recipe detail page displays complete recipe information
+- [/] Ingredients display in correct order
+- [/] Directions display in sequential order
 - [ ] Categories display on recipe pages
 - [ ] Category filter/list page works
 - [ ] Can browse recipes by category
@@ -435,7 +435,7 @@ Use this checklist to track your progress toward completing the minimum viable p
 - [ ] `.env.local` not committed to repository
 
 ### Documentation
-- [ ] README.md created
+- [/] README.md created
 - [ ] Setup instructions documented
 - [ ] Technology stack listed
 - [ ] Features documented
