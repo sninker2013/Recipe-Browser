@@ -245,5 +245,105 @@ export const directionData = [
     recipeSlug: "shoyu-chicken",
     position: 8,
     instruction: "Drizzle remaining sauce over chicken and rice."
+  },
+  {
+    recipeSlug: "avocado-toast",
+    position: 1,
+    instruction: "Toast the bread until golden and crisp."
+  },
+  {
+    recipeSlug: "avocado-toast",
+    position: 2,
+    instruction: "Mash the avocado with lemon juice, salt and pepper."
+  },
+  {
+    recipeSlug: "avocado-toast",
+    position: 3,
+    instruction: "Spread the avocado mixture evenly over the toast."
+  },
+  {
+    recipeSlug: "avocado-toast",
+    position: 4,
+    instruction: "Drizzle with olive oil and sprinkle with chili flakes."
+  },
+  {
+    recipeSlug: "chicken-caesar-wrap",
+    position: 1,
+    instruction: "Warm the tortilla in a dry skillet for 10 seconds on each side."
+  },
+  {
+    recipeSlug: "chicken-caesar-wrap",
+    position: 2,
+    instruction: "Toss sliced chicken, lettuce, parmesan, dressing and croutons together in a bowl."
+  },
+  {
+    recipeSlug: "chicken-caesar-wrap",
+    position: 3,
+    instruction: "Divide the salad mixture down the center of each tortilla."
+  },
+  {
+    recipeSlug: "chicken-caesar-wrap",
+    position: 4,
+    instruction: "Fold in the sides and roll the tortilla tightly to form a wrap."
+  },
+  {
+    recipeSlug: "chicken-caesar-wrap",
+    position: 5,
+    instruction: "Slice each wrap in half and serve immediately."
+  },
+  {
+    recipeSlug: "chocolate-brownies",
+    position: 1,
+    instruction: "Preheat the oven to 180°C (350°F) and line a baking pan with parchment."
+  },
+  {
+    recipeSlug: "chocolate-brownies",
+    position: 2,
+    instruction: "Melt chocolate and butter together over low heat, stirring until smooth."
+  },
+  {
+    recipeSlug: "chocolate-brownies",
+    position: 3,
+    instruction: "Stir in the sugar, then whisk in the eggs one at a time."
+  },
+  {
+    recipeSlug: "chocolate-brownies",
+    position: 4,
+    instruction: "Fold in flour, cocoa powder and salt until just combined."
+  },
+  {
+    recipeSlug: "chocolate-brownies",
+    position: 5,
+    instruction: "Pour batter into the pan and bake for 25-30 minutes."
+  },
+  {
+    recipeSlug: "chocolate-brownies",
+    position: 6,
+    instruction: "Allow the brownies to cool before cutting into squares."
+  },
+  {
+    recipeSlug: "quinoa-buddha-bowl",
+    position: 1,
+    instruction: "Rinse the quinoa and cook it in vegetable broth until fluffy."
+  },
+  {
+    recipeSlug: "quinoa-buddha-bowl",
+    position: 2,
+    instruction: "Roast the sweet potato cubes until tender and lightly crisp."
+  },
+  {
+    recipeSlug: "quinoa-buddha-bowl",
+    position: 3,
+    instruction: "Arrange cooked quinoa, chickpeas, spinach and sweet potato in bowls."
+  },
+  {
+    recipeSlug: "quinoa-buddha-bowl",
+    position: 4,
+    instruction: "Drizzle the tahini dressing over the bowl ingredients."
+  },
+  {
+    recipeSlug: "quinoa-buddha-bowl",
+    position: 5,
+    instruction: "Season with salt and pepper, then serve immediately."
   }
 ]

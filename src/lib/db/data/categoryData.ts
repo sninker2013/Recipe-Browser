@@ -11,4 +11,8 @@ export const recipeCategoryData = [
     { recipeSlug: 'spaghetti-carbonara', categorySlug: 'dinner' },
     { recipeSlug: 'spaghetti-carbonara', categorySlug: 'quick-easy' },
     { recipeSlug: 'chicken-tikka-masala', categorySlug: 'dinner' },
+    { recipeSlug: 'avocado-toast', categorySlug: 'breakfast' },
+    { recipeSlug: 'chicken-caesar-wrap', categorySlug: 'lunch' },
+    { recipeSlug: 'chocolate-brownies', categorySlug: 'dessert' },
+    { recipeSlug: 'quinoa-buddha-bowl', categorySlug: 'vegetarian' },
 ]

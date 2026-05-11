@@ -294,5 +294,149 @@ export const ingredientData = [
     position: 9,
     name: "skinless chicken thighs",
     amount: "5 pounds"
+  },
+  {
+    recipeSlug: "avocado-toast",
+    position: 1,
+    name: "ripe avocado",
+    amount: "1"
+  },
+  {
+    recipeSlug: "avocado-toast",
+    position: 2,
+    name: "sourdough bread slices",
+    amount: "2"
+  },
+  {
+    recipeSlug: "avocado-toast",
+    position: 3,
+    name: "lemon juice",
+    amount: "1 teaspoon"
+  },
+  {
+    recipeSlug: "avocado-toast",
+    position: 4,
+    name: "extra virgin olive oil",
+    amount: "1 tablespoon"
+  },
+  {
+    recipeSlug: "avocado-toast",
+    position: 5,
+    name: "chili flakes",
+    amount: "1/2 teaspoon"
+  },
+  {
+    recipeSlug: "chicken-caesar-wrap",
+    position: 1,
+    name: "grilled chicken breast, sliced",
+    amount: "200g"
+  },
+  {
+    recipeSlug: "chicken-caesar-wrap",
+    position: 2,
+    name: "large flour tortillas",
+    amount: "2"
+  },
+  {
+    recipeSlug: "chicken-caesar-wrap",
+    position: 3,
+    name: "romaine lettuce, chopped",
+    amount: "2 cups"
+  },
+  {
+    recipeSlug: "chicken-caesar-wrap",
+    position: 4,
+    name: "parmesan cheese, grated",
+    amount: "1/4 cup"
+  },
+  {
+    recipeSlug: "chicken-caesar-wrap",
+    position: 5,
+    name: "Caesar dressing",
+    amount: "3 tablespoons"
+  },
+  {
+    recipeSlug: "chicken-caesar-wrap",
+    position: 6,
+    name: "croutons, crushed",
+    amount: "1/2 cup"
+  },
+  {
+    recipeSlug: "chocolate-brownies",
+    position: 1,
+    name: "dark chocolate, chopped",
+    amount: "200g"
+  },
+  {
+    recipeSlug: "chocolate-brownies",
+    position: 2,
+    name: "unsalted butter",
+    amount: "150g"
+  },
+  {
+    recipeSlug: "chocolate-brownies",
+    position: 3,
+    name: "caster sugar",
+    amount: "250g"
+  },
+  {
+    recipeSlug: "chocolate-brownies",
+    position: 4,
+    name: "large eggs",
+    amount: "3"
+  },
+  {
+    recipeSlug: "chocolate-brownies",
+    position: 5,
+    name: "plain flour",
+    amount: "100g"
+  },
+  {
+    recipeSlug: "chocolate-brownies",
+    position: 6,
+    name: "cocoa powder",
+    amount: "30g"
+  },
+  {
+    recipeSlug: "chocolate-brownies",
+    position: 7,
+    name: "salt",
+    amount: "1/4 teaspoon"
+  },
+  {
+    recipeSlug: "quinoa-buddha-bowl",
+    position: 1,
+    name: "quinoa",
+    amount: "1 cup"
+  },
+  {
+    recipeSlug: "quinoa-buddha-bowl",
+    position: 2,
+    name: "vegetable broth",
+    amount: "2 cups"
+  },
+  {
+    recipeSlug: "quinoa-buddha-bowl",
+    position: 3,
+    name: "chickpeas, drained",
+    amount: "1 cup"
+  },
+  {
+    recipeSlug: "quinoa-buddha-bowl",
+    position: 4,
+    name: "roasted sweet potato cubes",
+    amount: "1 cup"
+  },
+  {
+    recipeSlug: "quinoa-buddha-bowl",
+    position: 5,
+    name: "baby spinach",
+    amount: "1 cup"
+  },
+  {
+    recipeSlug: "quinoa-buddha-bowl",
+    position: 6,
+    name: "tahini dressing",
+    amount: "3 tablespoons"
   }
 ]

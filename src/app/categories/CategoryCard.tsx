@@ -5,10 +5,10 @@ import { getRecipesByCategory } from "@/lib/services/recipeService";
 export default async function CategoryCard({category}: {category: Category}) {
     const recipesInCategory = await getRecipesByCategory(category.id);
     return (
-        <Link href={`/recipes/${category.slug}`} className="hover:">
-            <section className="p-6 m-5 bg-gray-200 rounded-xl hover:shadow-md hover:-translate-y-1 grid grid-cols-3 cursor-pointer h-full">
+        <Link href={`/categories/${category.slug}`} className="hover:">
+            <section className="p-4 m-5 bg-gray-200 rounded-xl hover:shadow-md hover:-translate-y-1 cursor-pointer h-full flex flex-col justify-around">
                 <h3 className="font-bold col-span-3 text-center">{category.name}</h3>
-                <p>{recipesInCategory.length} recipes</p>
+                <p className="text-center">{recipesInCategory.length} recipes</p>
             </section>
         </Link>
     )
