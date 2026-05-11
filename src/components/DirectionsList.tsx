@@ -1,19 +1,19 @@
 import { getDirectionsByRecipeSlug } from "@/lib/services/directionsService";
-
-export function DirectionsList({
+import { Direction } from "@/lib/db/schema";
+export async function DirectionsList({
     slug,
 }: {
     slug: string
 }) {
-    const directions = getDirectionsByRecipeSlug(slug)
+    const directions: Direction[] = await getDirectionsByRecipeSlug(slug)
 
     return(
         <ol className="list-decimal list-inside m-5">
-            {directions.then((directions) => directions.map((direction) => (
+            {directions.map((direction: Direction) => (
                 <li key={`${direction.recipeSlug}-${direction.position}`}>
                     {direction.instruction}
                 </li>
-            )))}
+            ))}
         </ol>
     )
 }
