@@ -3,6 +3,8 @@ import { formatInterval } from "@/lib/utils/formatInterval";
 import { getIngredientsByRecipeSlug } from "@/lib/services/ingredientsService";
 import { getDirectionsByRecipeSlug } from "@/lib/services/directionsService";
 
+
+// This page is for displaying a single recipe with the ingredients and directions. 
 export default async function RecipePage({
     params,
 }: {

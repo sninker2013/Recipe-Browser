@@ -1,6 +1,7 @@
 import { Recipe } from "@/lib/db/schema"
-import { RecipeItem } from "../../../components/recipeCard"
+import { RecipeItem } from "./recipeCard"
 
+// This is a component for displaying a grid of recipes.
 export default function RecipesDisplay({recipes}: {recipes: Recipe[]}) {
     const recipeItems: React.JSX.Element[] = []
 
