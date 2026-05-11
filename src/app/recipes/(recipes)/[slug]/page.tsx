@@ -1,6 +1,7 @@
 import { getRecipeBySlug } from "@/lib/services/recipeService";
 import { formatInterval } from "@/lib/utils/formatInterval";
 import { getIngredientsByRecipeSlug } from "@/lib/services/ingredientsService";
+import { getDirectionsByRecipeSlug } from "@/lib/services/directionsService";
 
 export default async function RecipePage({
     params,
@@ -31,6 +32,25 @@ export default async function RecipePage({
                 </ul>
             </div>
         </div>
+        <RecipePageDirections slug={slug}></RecipePageDirections>
     </>
+    )
+}
+
+export function RecipePageDirections({
+    slug,
+}: {
+    slug: string
+}) {
+    const directions = getDirectionsByRecipeSlug(slug)
+
+    return(
+        <ol className="list-decimal list-inside m-5">
+            {directions.then((directions) => directions.map((direction) => (
+                <li key={`${direction.recipeSlug}-${direction.position}`}>
+                    {direction.instruction}
+                </li>
+            )))}
+        </ol>
     )
 }

@@ -1,7 +1,7 @@
 import { Recipe } from "@/lib/db/schema"
-import { RecipeItem } from "./recipeCard"
+import { RecipeItem } from "../../../components/recipeCard"
 
-export function RecipesDisplay({recipes}: {recipes: Recipe[]}) {
+export default function RecipesDisplay({recipes}: {recipes: Recipe[]}) {
     const recipeItems: React.JSX.Element[] = []
 
     recipes.forEach((recipe: Recipe) => {

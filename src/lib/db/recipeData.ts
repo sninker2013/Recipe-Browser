@@ -1,14 +1,3 @@
-
-
-export const categoryData = [
-    { name: 'Breakfast', slug: 'breakfast', description: 'Morning meals' },
-    { name: 'Lunch', slug: 'lunch', description: 'Midday meals' },
-    { name: 'Dinner', slug: 'dinner', description: 'Evening meals' },
-    { name: 'Dessert', slug: 'dessert', description: 'Sweet treats' },
-    { name: 'Vegetarian', slug: 'vegetarian', description: 'Plant-based recipes' },
-    { name: 'Quick & Easy', slug: 'quick-easy', description: 'Under 30 minutes' },
-]
-
 export const recipeData = [
     {
       title: "Spaghetti Carbonara",
@@ -64,61 +53,4 @@ export const recipeData = [
       cookTime: "00:30",
       servings: 12,
     }
-  ]
-
-export const ingredientData = [
-  {
-    recipeSlug: "shoyu-chicken",
-    position: 1,
-    name: "soy sauce",
-    amount: "1 cup"
-  },
-  {
-    recipeSlug: "shoyu-chicken",
-    position: 2,
-    name: "brown sugar",
-    amount: "1 cup"
-  },
-  {
-    recipeSlug: "shoyu-chicken",
-    position: 3,
-    name: "water",
-    amount: "1 cup"
-  },
-  {
-    recipeSlug: "shoyu-chicken",
-    position: 4,
-    name: "onion, chopped",
-    amount: "1"
-  },
-  {
-    recipeSlug: "shoyu-chicken",
-    position: 5,
-    name: "cloves garlic, minced",
-    amount: "4"
-  },
-  {
-    recipeSlug: "shoyu-chicken",
-    position: 6,
-    name: "grated fresh ginger root",
-    amount: "1 tablespoon"
-  },
-  {
-    recipeSlug: "shoyu-chicken",
-    position: 7,
-    name: "ground black pepper",
-    amount: "1 tablespoon"
-  },
-  {
-    recipeSlug: "shoyu-chicken",
-    position: 8,
-    name: "dried oregano",
-    amount: "1 tablespoon"
-  },
-  {
-    recipeSlug: "shoyu-chicken",
-    position: 9,
-    name: "skinless chicken thighs",
-    amount: "5 pounds"
-  }
 ]

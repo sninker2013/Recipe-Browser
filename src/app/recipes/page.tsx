@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { getAllRecipes } from "@/lib/services/recipeService"
-import { RecipesDisplay } from "./(recipes)/recipeGrid"
+import RecipesDisplay from "./(recipes)/recipeGrid"
 
 export default async function RecipePage() {
   const recipes = await getAllRecipes()
