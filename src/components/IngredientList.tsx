@@ -1,5 +1,5 @@
 import { getIngredientsByRecipeSlug } from "@/lib/services/ingredientsService";
-import notFound from "@/app/recipes/[slug]/notFound";
+import notFound from "@/app/recipes/[id]/notFound";
 
 export async function IngredientList({
     slug,

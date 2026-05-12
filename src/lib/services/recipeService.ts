@@ -16,16 +16,16 @@ export async function getAllRecipes(): Promise<Recipe[]> {
 }
 
 /**
- * Gets a single recipe from the database based on the slug.
- * @param slug (string) - The slug of the recipe to get.
+ * Gets a single recipe from the database based on the id.
+ * @param id (id) - The id of the recipe to get.
  * @returns (Recipe) - A single recipe.
  * @throws Will throw an error if there is a problem connecting to the database
  *      or if the recipe is not found.
  */
-export async function getRecipeBySlug(slug: string): Promise<Recipe> {
+export async function getRecipeById(id: number): Promise<Recipe> {
     try {
             const recipe = await db.select().from(recipesTable)
-            .where(eq(recipesTable.slug, slug))
+            .where(eq(recipesTable.id, id))
             return recipe[0];
     } catch (e) {
         throw new Error("Could not connect to the database. Make sure Docker is running.");

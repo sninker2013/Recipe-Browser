@@ -1,7 +1,7 @@
 import { db } from "../db";
 import { directionsTable, Direction } from "../db/schema";
 import { eq } from "drizzle-orm";
-import notFound from "@/app/recipes/[slug]/notFound";
+import notFound from "@/app/recipes/[id]/notFound";
 
 /**
  * Gets all of the directions for a recipe from the database based on the recipe slug.

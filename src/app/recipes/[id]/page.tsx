@@ -1,4 +1,4 @@
-import { getRecipeBySlug } from "@/lib/services/recipeService";
+import { getRecipeById } from "@/lib/services/recipeService";
 import { formatInterval } from "@/lib/utils/formatInterval";
 import { IngredientList } from "@/components/IngredientList";
 import { DirectionsList } from "@/components/DirectionsList";
@@ -11,10 +11,10 @@ import notFound from "./notFound";
 export default async function RecipePage({
     params,
 }: {
-    params: Promise<{ slug: string }>
+    params: Promise<{ id: number }>
 }) {
-    const { slug } = await params
-    const recipe = await getRecipeBySlug(slug)
+    const { id } = await params
+    const recipe = await getRecipeById(id)
     if (!recipe) {
         return notFound("recipe");
     }
@@ -31,9 +31,9 @@ export default async function RecipePage({
                 <h3>Cook Time: {formatInterval(recipe.cookTime)}</h3>
                 <h3>Servings: {recipe.servings}</h3>
             </div>
-        <IngredientList slug={slug}></IngredientList>
+        <IngredientList slug={recipe.slug}></IngredientList>
         </div>
-        <DirectionsList slug={slug}></DirectionsList>
+        <DirectionsList slug={recipe.slug}></DirectionsList>
     </>
     )
 }

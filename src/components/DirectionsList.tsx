@@ -1,6 +1,6 @@
 import { getDirectionsByRecipeSlug } from "@/lib/services/directionsService";
 import { Direction } from "@/lib/db/schema";
-import notFound from "@/app/recipes/[slug]/notFound";
+import notFound from "@/app/recipes/[id]/notFound";
 
 export async function DirectionsList({
     slug,
