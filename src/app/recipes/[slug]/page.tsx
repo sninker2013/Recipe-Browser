@@ -31,9 +31,9 @@ export default async function RecipePage({
                 <h3>Cook Time: {formatInterval(recipe.cookTime)}</h3>
                 <h3>Servings: {recipe.servings}</h3>
             </div>
-        <IngredientList slug={slug}></IngredientList>
+        <IngredientList id={recipe.id}></IngredientList>
         </div>
-        <DirectionsList slug={slug}></DirectionsList>
+        <DirectionsList id={recipe.id}></DirectionsList>
     </>
     )
 }

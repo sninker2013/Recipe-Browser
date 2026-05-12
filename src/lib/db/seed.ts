@@ -27,8 +27,21 @@ async function seed() {
     
     const categories = await db.insert(categoriesTable).values(categoryData).returning();
     const recipes = await db.insert(recipesTable).values(recipeData).returning();
-    await db.insert(ingredientsTable).values(ingredientData);
-    await db.insert(directionsTable).values(directionData);
+    const recipeIdBySlug = Object.fromEntries(
+        recipes.map(r => [r.slug, r.id])
+    )
+    await db.insert(ingredientsTable).values(
+        ingredientData.map(({ recipeSlug, ...rest }) => ({
+            ...rest,
+            recipeId: recipeIdBySlug[recipeSlug]
+        }))
+    )
+    await db.insert(directionsTable).values(
+        directionData.map(({ recipeSlug, ...rest }) => ({
+            ...rest,
+            recipeId: recipeIdBySlug[recipeSlug]
+        }))
+    );
     await db.insert(recipeCategoriesTable).values(seedRecipeCategories(recipes, categories));
 
 

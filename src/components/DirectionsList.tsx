@@ -1,13 +1,13 @@
-import { getDirectionsByRecipeSlug } from "@/lib/services/directionsService";
+import { getDirectionsByRecipeId } from "@/lib/services/directionsService";
 import { Direction } from "@/lib/db/schema";
 import notFound from "@/app/recipes/[slug]/notFound";
 
 export async function DirectionsList({
-    slug,
+    id,
 }: {
-    slug: string
+    id: number
 }) {
-    const directions: Direction[] = await getDirectionsByRecipeSlug(slug)
+    const directions: Direction[] = await getDirectionsByRecipeId(id)
     if (!directions || directions.length === 0) {
         return notFound("directions");
     }
