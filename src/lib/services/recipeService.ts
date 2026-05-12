@@ -7,7 +7,11 @@ import { eq, inArray } from "drizzle-orm";
  * @returns (Recipe[]) - An array of all the recipes in the database.
  */
 export async function getAllRecipes(): Promise<Recipe[]> {
-    return await db.select().from(recipesTable);
+    try {
+        return await db.select().from(recipesTable);
+    } catch (e) {
+        throw new Error("Could not connect to the database. Make sure Docker is running.");
+    }
 }
 
 /**
@@ -16,9 +20,13 @@ export async function getAllRecipes(): Promise<Recipe[]> {
  * @returns (Recipe) - A single recipe.
  */
 export async function getRecipeBySlug(slug: string): Promise<Recipe> {
-    const recipe = await db.select().from(recipesTable)
-    .where(eq(recipesTable.slug, slug))
-    return recipe[0];
+    try {
+            const recipe = await db.select().from(recipesTable)
+            .where(eq(recipesTable.slug, slug))
+            return recipe[0];
+    } catch (e) {
+        throw new Error("Could not connect to the database. Make sure Docker is running.");
+    }
 }
 
 /**
@@ -27,11 +35,15 @@ export async function getRecipeBySlug(slug: string): Promise<Recipe> {
  * @returns (Recipe[]) - An array of all the recipes that belong in the category.
  */
 export async function getRecipesByCategoryId(categoryId: number): Promise<Recipe[]> {
-    const recipeCategories = await db.select().from(recipeCategoriesTable)
-    .where(eq(recipeCategoriesTable.categoryId, categoryId))
-
-    const recipeIds = recipeCategories.map(rc => rc.recipeId);
-
-    return await db.select().from(recipesTable)
-    .where(inArray(recipesTable.id, recipeIds));
+    try {
+            const recipeCategories = await db.select().from(recipeCategoriesTable)
+            .where(eq(recipeCategoriesTable.categoryId, categoryId))
+        
+            const recipeIds = recipeCategories.map(rc => rc.recipeId);
+        
+            return await db.select().from(recipesTable)
+            .where(inArray(recipesTable.id, recipeIds));
+    } catch (e) {
+        throw new Error("Could not connect to the database. Make sure Docker is running.");
+    }
 }

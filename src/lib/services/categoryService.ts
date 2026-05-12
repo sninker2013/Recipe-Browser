@@ -7,7 +7,11 @@ import { eq, inArray } from "drizzle-orm";
  * @returns (Category[]) - An array of all the categories in the database.
  */
 export async function getAllCategories(): Promise<Category[]> {
-    return await db.select().from(categoriesTable);
+    try {
+        return await db.select().from(categoriesTable);
+    } catch (e) {
+        throw new Error("Could not connect to the database. Make sure Docker is running.");
+    }
 }
 
 /**
@@ -16,19 +20,27 @@ export async function getAllCategories(): Promise<Category[]> {
  * @returns (Recipe) - A single category.
  */
 export async function getCategoryBySlug(slug: string): Promise<Category> {
-    const recipe = await db.select().from(categoriesTable)
-    .where(eq(categoriesTable.slug, slug))
-    return recipe[0];
+    try {
+        const recipe = await db.select().from(categoriesTable)
+        .where(eq(categoriesTable.slug, slug))
+        return recipe[0];
+    } catch (e) {
+        throw new Error("Could not connect to the database. Make sure Docker is running.");
+    }
 }
 
 export async function getCategoriesByRecipeId(recipeId: number): Promise<Category[]> {
-    const recipeCategories = await db.select().from(recipeCategoriesTable)
-    .where(eq(recipeCategoriesTable.recipeId, recipeId))
-
-    const categoryIds = recipeCategories.map(rc => rc.categoryId);
-
-    const categories = await db.select().from(categoriesTable)
-    .where(inArray(categoriesTable.id, categoryIds));
-
-    return categories;
+    try {
+            const recipeCategories = await db.select().from(recipeCategoriesTable)
+            .where(eq(recipeCategoriesTable.recipeId, recipeId))
+        
+            const categoryIds = recipeCategories.map(rc => rc.categoryId);
+        
+            const categories = await db.select().from(categoriesTable)
+            .where(inArray(categoriesTable.id, categoryIds));
+        
+            return categories;
+    } catch (e) {
+        throw new Error("Could not connect to the database. Make sure Docker is running.");
+    }
 }

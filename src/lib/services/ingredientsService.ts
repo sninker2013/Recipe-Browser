@@ -8,8 +8,12 @@ import { eq } from "drizzle-orm";
  * @returns (Ingredient[]) - An array of all the ingredients for the recipe.
  */
 export async function getIngredientsByRecipeSlug(recipeSlug: string): Promise<Ingredient[]> {
-    const ingredients = await db.select().from(ingredientsTable)
-    .where(eq(ingredientsTable.recipeSlug, recipeSlug))
-    ingredients.sort((a, b) => a.position - b.position)
-    return ingredients;
+    try {
+            const ingredients = await db.select().from(ingredientsTable)
+            .where(eq(ingredientsTable.recipeSlug, recipeSlug))
+            ingredients.sort((a, b) => a.position - b.position)
+            return ingredients;
+    } catch (e) {
+        throw new Error("Could not connect to the database. Make sure Docker is running.");
+    }
 }

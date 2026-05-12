@@ -8,8 +8,12 @@ import { eq } from "drizzle-orm";
  * @returns (Directions[]) - An array of all the directions for the recipe.
  */
 export async function getDirectionsByRecipeSlug(recipeSlug: string): Promise<Direction[]> {
-    const directions = await db.select().from(directionsTable)
-    .where(eq(directionsTable.recipeSlug, recipeSlug))
-    directions.sort((a, b) => a.position - b.position)
-    return directions;
+    try {
+            const directions = await db.select().from(directionsTable)
+            .where(eq(directionsTable.recipeSlug, recipeSlug))
+            directions.sort((a, b) => a.position - b.position)
+            return directions;
+    } catch (e) {
+        throw new Error("Could not connect to the database. Make sure Docker is running.");
+    }
 }

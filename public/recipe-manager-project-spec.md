@@ -383,7 +383,7 @@ Use this checklist to track your progress toward completing the minimum viable p
 - [/] Recipe detail page displays complete recipe information
 - [/] Ingredients display in correct order
 - [/] Directions display in sequential order
-- [ ] Categories display on recipe pages
+- [/] Categories display on recipe pages
 - [/] Category filter/list page works
 - [/] Can browse recipes by category
 - [/] Recipe creator names display
