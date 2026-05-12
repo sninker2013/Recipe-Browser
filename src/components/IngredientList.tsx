@@ -1,4 +1,5 @@
 import { getIngredientsByRecipeSlug } from "@/lib/services/ingredientsService";
+import notFound from "@/app/recipes/[slug]/notFound";
 
 export async function IngredientList({
     slug,
@@ -6,6 +7,10 @@ export async function IngredientList({
     slug: string
 }) {
     const ingredients = await getIngredientsByRecipeSlug(slug)
+    if (!ingredients || ingredients.length === 0) {
+        return notFound("ingredients");
+    }
+    
     return(
         <div>
     <h3 className="text-center m-5">Ingredients</h3>
