@@ -5,6 +5,7 @@ import { DirectionsList } from "@/components/DirectionsList";
 import { getCategoriesByRecipeId } from "@/lib/services/categoryService";
 import CategoryTags from "@/components/categoryTags";
 import { Category } from "@/lib/db/schema";
+import notFound from "./notFound";
 
 // This page is for displaying a single recipe with the ingredients and directions. 
 export default async function RecipePage({
@@ -14,6 +15,9 @@ export default async function RecipePage({
 }) {
     const { slug } = await params
     const recipe = await getRecipeBySlug(slug)
+    if (!recipe) {
+        return notFound("recipe");
+    }
     const categories: Category[] = await getCategoriesByRecipeId(recipe.id)
     
     return(<>

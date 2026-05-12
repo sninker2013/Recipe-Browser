@@ -26,9 +26,6 @@ export async function getRecipeBySlug(slug: string): Promise<Recipe> {
     try {
             const recipe = await db.select().from(recipesTable)
             .where(eq(recipesTable.slug, slug))
-            if (recipe.length === 0) {
-                throw new Error("Recipe not found");
-            }
             return recipe[0];
     } catch (e) {
         throw new Error("Could not connect to the database. Make sure Docker is running.");
@@ -48,9 +45,6 @@ export async function getRecipesByCategoryId(categoryId: number): Promise<Recipe
             .where(eq(recipeCategoriesTable.categoryId, categoryId))
         
             const recipeIds = recipeCategories.map(rc => rc.recipeId);
-            if (recipeIds.length === 0) {
-                throw new Error("Recipes not found for category");
-            }
         
             return await db.select().from(recipesTable)
             .where(inArray(recipesTable.id, recipeIds));
