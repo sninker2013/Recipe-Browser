@@ -3,8 +3,8 @@ import { formatInterval } from "@/lib/utils/formatInterval";
 import { IngredientList } from "@/components/IngredientList";
 import { DirectionsList } from "@/components/DirectionsList";
 import { getCategoriesByRecipeId } from "@/lib/services/categoryService";
-import CategoryTags from "@/components/categoryTags";
-import { Category } from "@/lib/db/schema";
+import CategoryTags from "@/components/CategoryTags";
+import { Category } from "@/lib/db/schema/schema";
 import notFound from "./notFound";
 
 // This page is for displaying a single recipe with the ingredients and directions. 

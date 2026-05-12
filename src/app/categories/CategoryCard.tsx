@@ -1,4 +1,4 @@
-import { Category } from "@/lib/db/schema";
+import { Category } from "@/lib/db/schema/schema";
 import Link from "next/link";
 import { getRecipesByCategoryId } from "@/lib/services/recipeService";
 

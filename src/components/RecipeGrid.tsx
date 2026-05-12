@@ -1,4 +1,4 @@
-import { Recipe } from "@/lib/db/schema"
+import { Recipe } from "@/lib/db/schema/schema"
 import { RecipeItem } from "./RecipeCard"
 
 // This is a component for displaying a grid of recipes.

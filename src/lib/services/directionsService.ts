@@ -1,5 +1,5 @@
 import { db } from "../db";
-import { directionsTable, Direction } from "../db/schema";
+import { directionsTable, Direction } from "../db/schema/schema";
 import { eq } from "drizzle-orm";
 import notFound from "@/app/recipes/[slug]/notFound";
 

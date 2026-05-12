@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from "pg"
-import { categoriesTable, recipesTable, ingredientsTable, recipeCategoriesTable, directionsTable, Recipe, Category } from './schema';
+import { categoriesTable, recipesTable, ingredientsTable, recipeCategoriesTable, directionsTable, Recipe, Category } from './schema/schema';
 
 import { categoryData, recipeCategoryData } from './data/categoryData';
 import { recipeData } from './data/recipeData';

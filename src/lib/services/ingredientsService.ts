@@ -1,5 +1,5 @@
 import { db } from "../db";
-import { ingredientsTable, Ingredient } from "../db/schema";
+import { ingredientsTable, Ingredient } from "../db/schema/schema";
 import { eq } from "drizzle-orm";
 
 /**

@@ -1,5 +1,5 @@
 import { db } from "../db";
-import { recipesTable, recipeCategoriesTable, Recipe } from "../db/schema";
+import { recipesTable, recipeCategoriesTable, Recipe } from "../db/schema/schema";
 import { eq, inArray } from "drizzle-orm";
 
 /**
