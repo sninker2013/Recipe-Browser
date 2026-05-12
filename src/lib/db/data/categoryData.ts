@@ -10,9 +10,16 @@ export const categoryData = [
 export const recipeCategoryData = [
     { recipeSlug: 'spaghetti-carbonara', categorySlug: 'dinner' },
     { recipeSlug: 'spaghetti-carbonara', categorySlug: 'quick-easy' },
+    { recipeSlug: 'beef-tacos', categorySlug: 'dinner' },
+    { recipeSlug: 'beef-tacos', categorySlug: 'quick-easy' },
+    { recipeSlug: 'salmon-teriyaki', categorySlug: 'dinner' },
+    { recipeSlug: 'salmon-teriyaki', categorySlug: 'quick-easy' },
+    { recipeSlug: 'shoyu-chicken', categorySlug: 'dinner' },
     { recipeSlug: 'chicken-tikka-masala', categorySlug: 'dinner' },
     { recipeSlug: 'avocado-toast', categorySlug: 'breakfast' },
     { recipeSlug: 'chicken-caesar-wrap', categorySlug: 'lunch' },
     { recipeSlug: 'chocolate-brownies', categorySlug: 'dessert' },
+    { recipeSlug: 'chocolate-brownies', categorySlug: 'vegetarian' },
     { recipeSlug: 'quinoa-buddha-bowl', categorySlug: 'vegetarian' },
+    { recipeSlug: 'quinoa-buddha-bowl', categorySlug: 'lunch' },
 ]
