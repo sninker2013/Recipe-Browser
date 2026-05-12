@@ -26,7 +26,7 @@ export async function getRecipeBySlug(slug: string): Promise<Recipe> {
  * @param categoryId (number) - The id of the category to get the recipes for.
  * @returns (Recipe[]) - An array of all the recipes that belong in the category.
  */
-export async function getRecipesByCategory(categoryId: number): Promise<Recipe[]> {
+export async function getRecipesByCategoryId(categoryId: number): Promise<Recipe[]> {
     const recipeCategories = await db.select().from(recipeCategoriesTable)
     .where(eq(recipeCategoriesTable.categoryId, categoryId))
 

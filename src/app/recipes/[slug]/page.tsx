@@ -2,6 +2,9 @@ import { getRecipeBySlug } from "@/lib/services/recipeService";
 import { formatInterval } from "@/lib/utils/formatInterval";
 import { IngredientList } from "@/components/IngredientList";
 import { DirectionsList } from "@/components/DirectionsList";
+import { getCategoriesByRecipeId } from "@/lib/services/categoryService";
+import CategoryTags from "@/components/categoryTags";
+import { Category } from "@/lib/db/schema";
 
 // This page is for displaying a single recipe with the ingredients and directions. 
 export default async function RecipePage({
@@ -11,10 +14,12 @@ export default async function RecipePage({
 }) {
     const { slug } = await params
     const recipe = await getRecipeBySlug(slug)
+    const categories: Category[] = await getCategoriesByRecipeId(recipe.id)
     
     return(<>
         <h2 className="text-center m-5">{recipe.title}</h2>
         <h3 className="text-center m-5 mt-2">By {recipe.author}</h3>
+        <CategoryTags categories={categories}></CategoryTags>
         <p className="m-5">{recipe.description}</p>
         <div className="flex justify-around">
             <div className="flex flex-col justify-between text-center border-2 border-gray-300 p-7 m-3 rounded-xl gap-4">

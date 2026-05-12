@@ -384,9 +384,9 @@ Use this checklist to track your progress toward completing the minimum viable p
 - [/] Ingredients display in correct order
 - [/] Directions display in sequential order
 - [ ] Categories display on recipe pages
-- [ ] Category filter/list page works
-- [ ] Can browse recipes by category
-- [ ] Recipe creator names display
+- [/] Category filter/list page works
+- [/] Can browse recipes by category
+- [/] Recipe creator names display
 
 ### Authentication System
 - [ ] NextAuth.js (or betterAuth) installed and configured

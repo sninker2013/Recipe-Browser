@@ -1,9 +1,8 @@
 import { Recipe } from "@/lib/db/schema"
 import { RecipeItem } from "./RecipeCard"
-import { getAllRecipes } from "@/lib/services/recipeService"
 
 // This is a component for displaying a grid of recipes.
-export default async function RecipesGrid({
+export default function RecipesGrid({
     recipes
 }: {
     recipes: Recipe[]
