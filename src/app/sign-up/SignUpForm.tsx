@@ -14,7 +14,17 @@ export function SignUpForm() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const { data, error } = await authClient.signUp.email({
+
+        const { data: response } = await authClient.isUsernameAvailable({
+            username: username,
+        });
+        if (!response?.available) {
+            setError("Username is already taken. Please choose another one.");
+            return;
+        }
+
+        // Main sign-up logic using better-auth client
+        const {} = await authClient.signUp.email({
             email: email,
             password: password,
             name: username
