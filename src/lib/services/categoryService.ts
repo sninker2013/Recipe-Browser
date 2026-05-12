@@ -5,6 +5,7 @@ import { eq, inArray } from "drizzle-orm";
 /**
  * Gets all the categories from the database.
  * @returns (Category[]) - An array of all the categories in the database.
+ * @throws Will throw an error if there is a problem connecting to the database.
  */
 export async function getAllCategories(): Promise<Category[]> {
     try {
@@ -18,6 +19,8 @@ export async function getAllCategories(): Promise<Category[]> {
  * Gets a single category from the database based on the slug.
  * @param slug (string) - The slug of the category to get.
  * @returns (Recipe) - A single category.
+ * @throws Will throw an error if there is a problem connecting to the database 
+ *  or if the category is not found.
  */
 export async function getCategoryBySlug(slug: string): Promise<Category> {
     try {
@@ -33,6 +36,13 @@ export async function getCategoryBySlug(slug: string): Promise<Category> {
     }
 }
 
+/**
+ * Gets all of the categories from the database that belong to a recipe.
+ * @param recipeId (number) - The id of the recipe to get the categories.
+ * @returns (Category[]) - An array of all the categories that belong to the recipe.
+ * @throws Will throw an error if there is a problem connecting to the database 
+ *  or if the categories are not found for the recipe.
+ */
 export async function getCategoriesByRecipeId(recipeId: number): Promise<Category[]> {
     try {
             const recipeCategories = await db.select().from(recipeCategoriesTable)
