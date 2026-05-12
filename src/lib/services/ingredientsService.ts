@@ -11,6 +11,10 @@ export async function getIngredientsByRecipeSlug(recipeSlug: string): Promise<In
     try {
             const ingredients = await db.select().from(ingredientsTable)
             .where(eq(ingredientsTable.recipeSlug, recipeSlug))
+            if (ingredients.length === 0) {
+                throw new Error("Ingredients not found for recipe");
+            }
+            
             ingredients.sort((a, b) => a.position - b.position)
             return ingredients;
     } catch (e) {
