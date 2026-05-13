@@ -9,7 +9,6 @@ import { recipeData } from './data/recipeData';
 import { ingredientData } from './data/ingredientData';
 import { directionData } from './data/directionData';
 import { exit } from 'process';
-import generateSlug from '../utils/slugify';
 // Seed file made with help from: https://www.youtube.com/watch?v=n9rtLhMN3cc
 
 const pool =  new Pool({
@@ -28,9 +27,12 @@ async function seed() {
     
     const categories = await db.insert(categoriesTable).values(categoryData).returning();
     const recipes = await db.insert(recipesTable).values(recipeData).returning();
+
+    // Need to do this because the ID changes with repeat seeds while slug stays consistent
     const recipeIdBySlug = Object.fromEntries(
         recipes.map(r => [r.slug, r.id])
     )
+    
     await db.insert(ingredientsTable).values(
         ingredientData.map(({ recipeSlug, ...rest }) => ({
             ...rest,
