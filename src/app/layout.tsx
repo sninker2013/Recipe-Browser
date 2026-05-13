@@ -1,5 +1,5 @@
 import "./globals.css"
-import { Nav } from "@/components/nav";
+import { Nav } from "@/components/Nav";
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -8,7 +8,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-full flex flex-col">
-        <h1>My Recipe App</h1>
+        <h1 className="p-3">My Recipe App</h1>
         <Nav/>
         {children}
         </body>

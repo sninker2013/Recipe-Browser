@@ -1,4 +1,4 @@
-import { Category } from "@/lib/db/schema";
+import { Category } from "@/lib/db/schema/schema";
 import { getAllCategories } from "@/lib/services/categoryService";
 import CategoryItem from "./CategoryCard";
 

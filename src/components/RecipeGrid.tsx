@@ -1,5 +1,5 @@
-import { Recipe } from "@/lib/db/schema"
-import { RecipeItem } from "./recipeCard"
+import { Recipe } from "@/lib/db/schema/schema"
+import { RecipeItem } from "./RecipeCard"
 
 // This is a component for displaying a grid of recipes.
 export default function RecipesGrid({

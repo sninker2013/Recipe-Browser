@@ -1,4 +1,4 @@
-import { Recipe } from "@/lib/db/schema"
+import { Recipe } from "@/lib/db/schema/schema"
 import { formatInterval } from "@/lib/utils/formatInterval"
 import Link from "next/link"
 

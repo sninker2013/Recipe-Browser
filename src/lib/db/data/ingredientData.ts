@@ -1,6 +1,13 @@
 // Mostly Generated using AI
 
-export const ingredientData = [
+type IngredientSeed = {
+    recipeSlug: string
+    position: number
+    name: string
+    amount: string
+}
+
+export const ingredientData: IngredientSeed[] = [
   {
     recipeSlug: "spaghetti-carbonara",
     position: 2,

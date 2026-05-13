@@ -1,5 +1,5 @@
 import { db } from "../db";
-import { categoriesTable, Category, recipeCategoriesTable } from "../db/schema";
+import { categoriesTable, Category, recipeCategoriesTable } from "../db/schema/schema";
 import { eq, inArray, not } from "drizzle-orm";
 import notFound from "@/app/categories/notFound";
 

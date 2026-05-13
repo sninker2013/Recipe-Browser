@@ -3,8 +3,8 @@ import { formatInterval } from "@/lib/utils/formatInterval";
 import { IngredientList } from "@/components/IngredientList";
 import { DirectionsList } from "@/components/DirectionsList";
 import { getCategoriesByRecipeId } from "@/lib/services/categoryService";
-import CategoryTags from "@/components/categoryTags";
-import { Category } from "@/lib/db/schema";
+import CategoryTags from "@/components/CategoryTags";
+import { Category } from "@/lib/db/schema/schema";
 import notFound from "./notFound";
 
 // This page is for displaying a single recipe with the ingredients and directions. 
@@ -31,9 +31,9 @@ export default async function RecipePage({
                 <h3>Cook Time: {formatInterval(recipe.cookTime)}</h3>
                 <h3>Servings: {recipe.servings}</h3>
             </div>
-        <IngredientList slug={recipe.slug}></IngredientList>
+        <IngredientList id={recipe.id}></IngredientList>
         </div>
-        <DirectionsList slug={recipe.slug}></DirectionsList>
+        <DirectionsList id={recipe.id}></DirectionsList>
     </>
     )
 }

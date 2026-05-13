@@ -29,22 +29,22 @@ export const recipeCategoriesTable = table("recipe_categories", {
 export type RecipeCategory = typeof recipeCategoriesTable.$inferSelect
 
 export const ingredientsTable = table("ingredients", {
-    recipeSlug: varchar("recipe_slug").notNull()
-        .references(() => recipesTable.slug),
+    recipeId: integer("recipe_id").notNull()
+        .references(() => recipesTable.id),
     position: integer("position").notNull(),
     name: varchar("name").notNull(),
     amount: varchar("amount").notNull()
 }, (table) => [
-    primaryKey({ columns: [table.recipeSlug, table.position] })
+    primaryKey({ columns: [table.recipeId, table.position] })
 ])
 export type Ingredient = typeof ingredientsTable.$inferSelect
 
 export const directionsTable = table("directions", {
-    recipeSlug: varchar("recipe_slug").notNull()
-        .references(() => recipesTable.slug),
+    recipeId: integer("recipeId").notNull()
+        .references(() => recipesTable.id),
     position: integer("position").notNull(),
     instruction: varchar("instruction").notNull()
 }, (table) => [
-    primaryKey({ columns: [table.recipeSlug, table.position] })
+    primaryKey({ columns: [table.recipeId, table.position] })
 ])
 export type Direction = typeof directionsTable.$inferSelect
