@@ -1,9 +1,9 @@
-import { Recipe } from "@/lib/db/schema/schema"
+import { SelectRecipe } from "@/lib/schema"
 import { formatInterval } from "@/lib/utils/formatInterval"
 import Link from "next/link"
 
 // This is a component for displaying a single recipe as a card. It is to be used in the recipe grid.
-export function RecipeItem({recipe}: {recipe: Recipe}) {
+export function RecipeItem({recipe}: {recipe: SelectRecipe}) {
     return(
         <Link href={`/recipes/${recipe.id}`} className="hover:">
             <section className="p-6 m-5 bg-gray-200 rounded-xl hover:shadow-md hover:-translate-y-1 grid grid-cols-3 cursor-pointer h-full">

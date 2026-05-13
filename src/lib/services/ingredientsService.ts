@@ -1,5 +1,6 @@
 import { db } from "../db";
-import { ingredientsTable, Ingredient } from "../db/schema/schema";
+import { ingredientsTable, } from "../db/schema/schema";
+import { SelectIngredient } from "../schema";
 import { eq } from "drizzle-orm";
 
 /**
@@ -9,8 +10,8 @@ import { eq } from "drizzle-orm";
  * @throws Will throw an error if there is a problem connecting to the database
  *      or if the ingredients are not found for the recipe.
  */
-export async function getIngredientsByRecipeId(recipeId: number): Promise<Ingredient[]> {
-    let ingredients: Ingredient[] = []
+export async function getIngredientsByRecipeId(recipeId: number): Promise<SelectIngredient[]> {
+    let ingredients: SelectIngredient[] = []
     try {
             ingredients = await db.select().from(ingredientsTable)
             .where(eq(ingredientsTable.recipeId, recipeId))

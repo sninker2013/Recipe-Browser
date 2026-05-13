@@ -1,10 +1,10 @@
-import { Category } from "@/lib/db/schema/schema";
+import { SelectCategory } from "@/lib/schema";
 import Link from "next/link";
 
-export default function CategoryTags({categories}: {categories: Category[]}) {
+export default function CategoryTags({categories}: {categories: SelectCategory[]}) {
     const categoryTags: React.JSX.Element[] = []
 
-    categories.forEach((category: Category) => {
+    categories.forEach((category: SelectCategory) => {
         categoryTags.push(<CategoryTag category={category} key={`${category.id}`}/>)
     })
 
@@ -15,7 +15,7 @@ export default function CategoryTags({categories}: {categories: Category[]}) {
     )
 }
 
-function CategoryTag({category}: {category: Category}) {
+function CategoryTag({category}: {category: SelectCategory}) {
     return(
         <span>
             <Link href={`/categories/${category.slug}`} 

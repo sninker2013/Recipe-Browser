@@ -1,16 +1,16 @@
-import { Recipe } from "@/lib/db/schema/schema"
+import { SelectRecipe } from "@/lib/schema"
 import { RecipeItem } from "./RecipeCard"
 
 // This is a component for displaying a grid of recipes.
 export default function RecipesGrid({
     recipes
 }: {
-    recipes: Recipe[]
+    recipes: SelectRecipe[]
 }
 ) {
     const recipeItems: React.JSX.Element[] = []
 
-    recipes.forEach((recipe: Recipe) => {
+    recipes.forEach((recipe: SelectRecipe) => {
         recipeItems.push(<RecipeItem
         recipe={recipe}
         key={`${recipe.id}`}/>)

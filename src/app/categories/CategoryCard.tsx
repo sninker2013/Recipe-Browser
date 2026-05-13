@@ -1,8 +1,8 @@
-import { Category } from "@/lib/db/schema/schema";
+import { SelectCategory } from "@/lib/schema";
 import Link from "next/link";
 import { getRecipesByCategoryId } from "@/lib/services/recipeService";
 
-export default async function CategoryCard({category}: {category: Category}) {
+export default async function CategoryCard({category}: {category: SelectCategory}) {
     const recipesInCategory = await getRecipesByCategoryId(category.id);
     return (
         <Link href={`/categories/${category.slug}`} className="hover:">

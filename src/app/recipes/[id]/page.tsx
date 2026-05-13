@@ -4,7 +4,7 @@ import { IngredientList } from "@/components/IngredientList";
 import { DirectionsList } from "@/components/DirectionsList";
 import { getCategoriesByRecipeId } from "@/lib/services/categoryService";
 import CategoryTags from "@/components/CategoryTags";
-import { Category } from "@/lib/db/schema/schema";
+import { SelectCategory } from "@/lib/schema";
 import notFound from "./notFound";
 
 // This page is for displaying a single recipe with the ingredients and directions. 
@@ -18,7 +18,7 @@ export default async function RecipePage({
     if (!recipe) {
         return notFound("recipe");
     }
-    const categories: Category[] = await getCategoriesByRecipeId(recipe.id)
+    const categories: SelectCategory[] = await getCategoriesByRecipeId(recipe.id)
     
     return(<>
         <h2 className="text-center m-5">{recipe.title}</h2>
