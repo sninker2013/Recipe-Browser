@@ -10,16 +10,17 @@ import { eq } from "drizzle-orm";
  *      or if the ingredients are not found for the recipe.
  */
 export async function getIngredientsByRecipeId(recipeId: number): Promise<Ingredient[]> {
+    let ingredients: Ingredient[] = []
     try {
-            const ingredients = await db.select().from(ingredientsTable)
+            ingredients = await db.select().from(ingredientsTable)
             .where(eq(ingredientsTable.recipeId, recipeId))
-            if (ingredients.length === 0) {
-                throw new Error("Ingredients not found for recipe");
-            }
-
-            ingredients.sort((a, b) => a.position - b.position)
-            return ingredients;
     } catch (e) {
         throw new Error("Could not connect to the database. Make sure Docker is running.");
     }
+    
+    if (ingredients.length === 0) {
+        throw new Error("Ingredients not found for recipe");
+    }
+    ingredients.sort((a, b) => a.position - b.position)
+    return ingredients;
 }

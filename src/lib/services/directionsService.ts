@@ -11,13 +11,17 @@ import notFound from "@/app/recipes/[id]/notFound";
  *      or if the directions are not found for the recipe.
  */
 export async function getDirectionsByRecipeId(recipeId: number): Promise<Direction[]> {
+    let directions: Direction[] = []
     try {
-            const directions = await db.select().from(directionsTable)
+            directions = await db.select().from(directionsTable)
             .where(eq(directionsTable.recipeId, recipeId))
-
-            directions.sort((a, b) => a.position - b.position)
-            return directions;
     } catch (e) {
         throw new Error("Could not connect to the database. Make sure Docker is running.");
     }
+    
+    if (directions.length === 0) {
+        throw new Error("Directions not found for recipe");
+    }
+    directions.sort((a, b) => a.position - b.position)
+    return directions;
 }

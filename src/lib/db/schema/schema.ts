@@ -40,7 +40,7 @@ export const ingredientsTable = table("ingredients", {
 export type Ingredient = typeof ingredientsTable.$inferSelect
 
 export const directionsTable = table("directions", {
-    recipeId: integer("recipeId").notNull()
+    recipeId: integer("recipe_id").notNull()
         .references(() => recipesTable.id),
     position: integer("position").notNull(),
     instruction: varchar("instruction").notNull()
