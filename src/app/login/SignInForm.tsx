@@ -56,7 +56,7 @@ export default function SignInForm() {
             </button>
             {error && <p className="text-red-500 mt-4">{error}</p>}
         </form>
-        <p className="pt-3">Don't have an account? <Link href="/sign-up" className="text-blue-400 underline">Sign Up</Link></p>
+        <p className="pt-3">Don't have an account? <Link href="/signup" className="text-blue-400 underline">Sign Up</Link></p>
     </section>
     )
 }

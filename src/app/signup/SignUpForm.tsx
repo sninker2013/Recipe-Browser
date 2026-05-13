@@ -88,7 +88,7 @@ export function SignUpForm() {
             </button>
             {error && <p className="text-red-500 mt-4">{error}</p>}
         </form>
-        <p className="pt-3">Already have an account? <Link href="/sign-in" className="text-blue-400 underline">Sign In</Link></p>
+        <p className="pt-3">Already have an account? <Link href="/login" className="text-blue-400 underline">Sign In</Link></p>
     </section>
     )
 }

@@ -52,3 +52,14 @@ export async function getRecipesByCategoryId(categoryId: number): Promise<Recipe
         throw new Error("Could not connect to the database. Make sure Docker is running.");
     }
 }
+
+export async function createRecipe(
+    title: string,
+    description: string,
+    author: string,
+    prepTime: string,
+    cookTime: string,
+    servings: number
+) {
+    
+}
