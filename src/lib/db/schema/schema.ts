@@ -3,7 +3,7 @@ import { integer, pgTable as table, varchar, interval, primaryKey } from "drizzl
 export const recipesTable = table("recipes", {
     id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
     title: varchar("title").notNull(),
-    slug: varchar("slug").notNull().unique(),
+    slug: varchar("slug").notNull(),
     description: varchar("description").notNull(),
     author: varchar("author").notNull(),
     prepTime: interval("prep_time", {fields: 'hour to minute'}).notNull(),
