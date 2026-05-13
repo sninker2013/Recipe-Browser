@@ -389,14 +389,14 @@ Use this checklist to track your progress toward completing the minimum viable p
 - [/] Recipe creator names display
 
 ### Authentication System
-- [ ] NextAuth.js (or betterAuth) installed and configured
-- [ ] User registration form works
-- [ ] Passwords are hashed before storage
-- [ ] User login form works
-- [ ] Users can logout
-- [ ] Session persists across page reloads
-- [ ] Navigation shows authentication status
-- [ ] Protected routes redirect unauthenticated users
+- [/] NextAuth.js (or betterAuth) installed and configured
+- [/] User registration form works
+- [/] Passwords are hashed before storage
+- [/] User login form works
+- [/] Users can logout
+- [/] Session persists across page reloads
+- [/] Navigation shows authentication status
+- [/] Protected routes redirect unauthenticated users
 
 ### User Dashboard
 - [ ] Dashboard accessible only when authenticated
