@@ -399,8 +399,8 @@ Use this checklist to track your progress toward completing the minimum viable p
 - [/] Protected routes redirect unauthenticated users
 
 ### User Dashboard
-- [ ] Dashboard accessible only when authenticated
-- [ ] Dashboard displays user name and email
+- [/] Dashboard accessible only when authenticated
+- [/] Dashboard displays user name and email
 - [ ] Dashboard shows count of user's recipes
 - [ ] Link to create new recipe present
 

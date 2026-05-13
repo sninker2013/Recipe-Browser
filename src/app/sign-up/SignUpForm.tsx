@@ -16,7 +16,13 @@ export function SignUpForm() {
     const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const { data: response } = await authClient.isUsernameAvailable({
+        // Shows an error when the username is shorter than 3 characters
+        if (username.length < 3) {
+            setError("Username must be at least 3 characters")
+        }
+
+        // Checks if the username is available
+        const { data: response, error: userError } = await authClient.isUsernameAvailable({
             username: username,
         });
         if (!response?.available) {
@@ -28,10 +34,11 @@ export function SignUpForm() {
         const {} = await authClient.signUp.email({
             email: email,
             password: password,
-            name: username
+            name: username,
+            username: username
         }, {
             onRequest: () => setLoading(true),
-            onSuccess: () => {router.push("/recipes")},
+            onSuccess: () => {router.push("/dashboard")},
             onError: (ctx) => {
                 const ctxError = ctx.error.message
                 if (ctxError.includes("body.email")) {

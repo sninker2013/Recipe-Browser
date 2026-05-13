@@ -21,7 +21,7 @@ export default function SignInForm() {
             password,
         }, {
             onRequest: () => setLoading(true),
-            onSuccess: () => {router.push("/recipes")},
+            onSuccess: () => {router.push("/dashboard")},
             onError: (ctx) => {
                 setError(ctx.error.message);
                 setLoading(false);

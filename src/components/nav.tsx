@@ -21,6 +21,7 @@ export function Nav() {
                 <div className="hover:text-blue-400 hover:underline"><Link href="/">Home</Link></div>
                 <div className="hover:text-blue-400 hover:underline"><Link href="/recipes">Recipes</Link></div>
                 <div className="hover:text-blue-400 hover:underline"><Link href="/categories">Categories</Link></div>
+                <div className="hover:text-blue-400 hover:underline"><Link href="/dashboard">Dashboard</Link></div>
                 <button className="hover:text-blue-400 hover:underline"
                 onClick={async () => {
                     await authClient.signOut({
