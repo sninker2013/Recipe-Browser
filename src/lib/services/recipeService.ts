@@ -1,7 +1,8 @@
 import { db } from "../db";
 import { recipesTable, recipeCategoriesTable } from "../db/schema/schema";
-import { SelectRecipe } from "../schema";
+import { SelectRecipe, InsertRecipe } from "../schema";
 import { eq, inArray } from "drizzle-orm";
+import slugify from "slugify"
 
 /**
  * Gets all the recipes from the database.
@@ -54,13 +55,12 @@ export async function getRecipesByCategoryId(categoryId: number): Promise<Select
     }
 }
 
-export async function createRecipe(
-    title: string,
-    description: string,
-    author: string,
-    prepTime: string,
-    cookTime: string,
-    servings: number
-) {
-
+export async function createRecipe(recipe: InsertRecipe) {
+    try {
+        const result = await db.insert(recipesTable).values(recipe).returning();
+        return {data: recipe}
+    } catch (e) {
+        console.error(e)
+        return null;
+    }
 }
