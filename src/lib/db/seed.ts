@@ -9,7 +9,7 @@ import { recipeData } from './data/recipeData';
 import { ingredientData } from './data/ingredientData';
 import { directionData } from './data/directionData';
 import { exit } from 'process';
-
+import generateSlug from '../utils/slugify';
 // Seed file made with help from: https://www.youtube.com/watch?v=n9rtLhMN3cc
 
 const pool =  new Pool({
@@ -44,8 +44,6 @@ async function seed() {
         }))
     );
     await db.insert(recipeCategoriesTable).values(seedRecipeCategories(recipes, categories));
-
-
 
     console.log("Seeding complete!")
     exit(0);
