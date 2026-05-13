@@ -1,13 +1,13 @@
 'use client'
 
-import { useState } from "react";
 import { authClient } from "@/lib/utils/auth-client";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import Link from "next/link";
 
-export function SignUpForm() {
+
+export default function SignInForm() {
     const router = useRouter()
-    const [username, setUsername] = useState<string>("")
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const [error, setError] = useState<string>("")
@@ -16,46 +16,21 @@ export function SignUpForm() {
     const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const { data: response } = await authClient.isUsernameAvailable({
-            username: username,
-        });
-        if (!response?.available) {
-            setError("Username is already taken. Please choose another one.");
-            return;
-        }
-
-        // Main sign-up logic using better-auth client
-        const {} = await authClient.signUp.email({
-            email: email,
-            password: password,
-            name: username
+        const {} = await authClient.signIn.email({
+            email,
+            password,
         }, {
             onRequest: () => setLoading(true),
             onSuccess: () => {router.push("/recipes")},
             onError: (ctx) => {
-                const ctxError = ctx.error.message
-                if (ctxError.includes("body.email")) {
-                    setError("Please enter a valid email address.")
-                } else {
-                    setError(ctxError)
-                };
-                setLoading(false)
+                setError(ctx.error.message);
+                setLoading(false);
             },
         })
     }
-    return (<section className="max-w-md mx-auto mt-10 p-6 border rounded">
+    return(<section className="max-w-md mx-auto mt-10 p-6 border rounded">
         <form onSubmit={handleSubmit}>
-            <h3 className="text-2xl font-bold mb-6 text-center">Create an Account</h3>
-            <div className="mb-4">
-                <label htmlFor="username" className="block text-left mb-2 font-medium">Username</label>
-                <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    onChange={e => setUsername(e.target.value)}
-                    className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-                ></input>
-            </div>
+            <h3 className="text-2xl font-bold mb-6 text-center">Enter your Email and Password</h3>
             <div className="mb-4">
                 <label htmlFor="email" className="block text-left mb-2 font-medium">Email</label>
                 <input
@@ -77,11 +52,11 @@ export function SignUpForm() {
                 ></input>
             </div>
             <button type="submit" disabled={loading} className="rounded bg-blue-400 p-3 pl-7 pr-7">
-                {loading ? 'Signing up...' : 'Sign Up'}
+                {loading ? 'Signing In...' : 'Sign In'}
             </button>
             {error && <p className="text-red-500 mt-4">{error}</p>}
         </form>
-        <p className="pt-3">Already have an account? <Link href="/sign-in" className="text-blue-400 underline">Sign In</Link></p>
+        <p className="pt-3">Don't have an account? <Link href="/sign-up" className="text-blue-400 underline">Sign Up</Link></p>
     </section>
     )
 }
