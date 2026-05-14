@@ -57,10 +57,10 @@ export async function getRecipesByCategoryId(categoryId: number): Promise<Select
 
 export async function createRecipe(recipe: InsertRecipe) {
     try {
-        const result = await db.insert(recipesTable).values(recipe).returning();
-        return {data: recipe}
+        const [result] = await db.insert(recipesTable).values(recipe).returning();
+        return result
     } catch (e) {
         console.error(e)
-        return null;
+        throw new Error
     }
 }
