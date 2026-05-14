@@ -23,7 +23,7 @@ export function validateRecipe(
     }
 
     // Prep time conversion and validation
-    if (prepHrs === "" || prepMins === "") {
+    if (prepHrs === "" && prepMins === "") {
         error = "Prep time cannot be empty"
         return {recipe: {} as InsertRecipe, error}
     }
@@ -44,7 +44,7 @@ export function validateRecipe(
     }
 
     // Cook time conversion and validation
-    if (cookHrs === "" || cookMins === "") {
+    if (cookHrs === "" && cookMins === "") {
         error = "Cook time cannot be empty"
         return {recipe: {} as InsertRecipe, error}
     }
@@ -80,6 +80,10 @@ export function validateRecipe(
     }
     if (servingsNum > 99) {
         error = "Servings need to be less than 100"
+        return {recipe: {} as InsertRecipe, error}
+    }
+    if (servingsNum == 0) {
+        error = "Servings need to be at least 1"
         return {recipe: {} as InsertRecipe, error}
     }
     const recipe: InsertRecipe = {

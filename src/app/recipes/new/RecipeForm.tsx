@@ -7,14 +7,6 @@ import { useRouter } from "next/navigation";
 import { createRecipeAction } from "@/lib/actions/recipe";
 
 export default function RecipeForm() {
-    const {data: session, isPending} = authClient.useSession();
-        if (isPending) {
-            return (
-            <div className="flex min-h-screen items-center justify-center">
-                <p className="text-gray-500">Loading...</p>
-            </div>
-            );
-        }
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [prepHrs, setPrepHrs] = useState<string>("");
@@ -23,8 +15,11 @@ export default function RecipeForm() {
     const [cookMins, setCookMins] = useState<string>("");
     const [servings, setServings] = useState<string>("");
     const [error, setError] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false)
     const router = useRouter()
-
+    
+    const {data: session, isPending} = authClient.useSession();
+        if (isPending) return null
 
     const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -38,13 +33,15 @@ export default function RecipeForm() {
         const {recipe, error} = validate.validateRecipe(
             title, description, session.user.username, prepHrs, prepMins, cookHrs, cookMins, servings
         );
-
         if(error) {
             setError(error)
         } else {
             setError("")
+
+            setLoading(true)
             const createdRecipe = await createRecipeAction(recipe)
-            // router.push(`/recipes/${createdRecipe.id}`)
+            router.push(`/recipes/user/${session.user.username}`)
+            setLoading(false)
         }
 
     }
@@ -95,7 +92,7 @@ export default function RecipeForm() {
                 onChange={e => setServings(e.target.value)}
                 className="w-6 border border-black rounded mr-1 text-center"></input>
         </section>
-        <button type="submit" className="rounded bg-blue-400 p-3 pl-7 pr-7 m-3">Submit</button>
+        <button type="submit" disabled={loading} className="rounded bg-blue-400 p-3 pl-7 pr-7 m-3">{loading ? "Submitting..." : "Submit"}</button>
         {error && <p className="text-red-500 mt-4">{error}</p>}
     </form>)
 }

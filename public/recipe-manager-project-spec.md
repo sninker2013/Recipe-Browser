@@ -401,12 +401,12 @@ Use this checklist to track your progress toward completing the minimum viable p
 ### User Dashboard
 - [/] Dashboard accessible only when authenticated
 - [/] Dashboard displays user name and email
-- [ ] Dashboard shows count of user's recipes
-- [ ] Link to create new recipe present
+- [/] Dashboard shows count of user's recipes
+- [/] Link to create new recipe present
 
 ### Recipe Creation
-- [ ] Create recipe page accessible (authenticated only)
-- [ ] Form includes all basic recipe fields
+- [/] Create recipe page accessible (authenticated only)
+- [/] Form includes all basic recipe fields
 - [ ] Can add ingredient fields dynamically
 - [ ] Can remove ingredient fields
 - [ ] Can add direction/step fields dynamically

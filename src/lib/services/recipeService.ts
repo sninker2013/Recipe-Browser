@@ -2,7 +2,6 @@ import { db } from "../db";
 import { recipesTable, recipeCategoriesTable } from "../db/schema/schema";
 import { SelectRecipe, InsertRecipe } from "../schema";
 import { eq, inArray } from "drizzle-orm";
-import slugify from "slugify"
 
 /**
  * Gets all the recipes from the database.
@@ -59,6 +58,19 @@ export async function createRecipe(recipe: InsertRecipe) {
     try {
         const [result] = await db.insert(recipesTable).values(recipe).returning();
         return result
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+export async function getRecipesByAuthor(author: string | null | undefined): Promise<SelectRecipe[]> {
+    try {
+        if (!author) {
+            throw new Error("Username does not exist")
+        }
+        const recipes: SelectRecipe[] = await db.select().from(recipesTable)
+        .where(eq(recipesTable.author, author))
+        return recipes
     } catch (e) {
         console.error(e)
         throw new Error
