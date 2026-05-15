@@ -13,15 +13,6 @@ export function validateRecipe(
     servings: string
 ): {recipe: InsertRecipe, recipeErr: string | undefined} {
     let recipeErr: string | undefined
-    if (title.trim() === "") {
-        recipeErr = "Title cannot be empty"
-        return {recipe: {} as InsertRecipe, recipeErr}
-    }
-
-    if (description.trim() === "") {
-        recipeErr = "Description cannot be empty"
-        return {recipe: {} as InsertRecipe, recipeErr}
-    }
 
     // Prep time conversion and validation
     if (prepHrs === "" && prepMins === "") {
@@ -95,6 +86,10 @@ export function validateRecipe(
         prepTime: prepTime,
         cookTime: cookTime,
         servings: servingsNum
+    }
+    const result = insertRecipeSchema.safeParse(recipe);
+    if (!result.success) {
+        return { recipe: {} as InsertRecipe, recipeErr: result.error?.issues[0].message}
     }
     return { recipe, recipeErr }
 }

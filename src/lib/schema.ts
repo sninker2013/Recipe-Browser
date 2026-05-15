@@ -6,19 +6,19 @@ import { recipesTable, categoriesTable, ingredientsTable, directionsTable, recip
 const selectRecipeSchema = createSelectSchema(recipesTable);
 export type SelectRecipe = z.infer<typeof selectRecipeSchema>
 export const insertRecipeSchema = createInsertSchema(recipesTable, {
-    title: z.string().min(3),
-    description: z.string().min(10),
+    title: z.string().trim().min(3, "Title needs to be at least 3 characters"),
+    description: z.string().trim().min(10, "Description needs to be at least 10 characters"),
 })
 export type InsertRecipe = z.infer<typeof insertRecipeSchema>
 
-const SelectCategorySchema = createSelectSchema(categoriesTable);
-export type SelectCategory = z.infer<typeof SelectCategorySchema>
+const selectCategorySchema = createSelectSchema(categoriesTable);
+export type SelectCategory = z.infer<typeof selectCategorySchema>
 
-const SelectDirectionsSchema = createSelectSchema(directionsTable);
-export type SelectDirection = z.infer<typeof SelectDirectionsSchema>
+const selectDirectionsSchema = createSelectSchema(directionsTable);
+export type SelectDirection = z.infer<typeof selectDirectionsSchema>
 
-const IngredientsSchema = createSelectSchema(ingredientsTable);
-export type Ingredient = z.infer<typeof IngredientsSchema>
+const ingredientsSchema = createInsertSchema(ingredientsTable);
+export type Ingredient = z.infer<typeof ingredientsSchema>
 
-const SelectRecipeCategoriesSchema = createSelectSchema(recipeCategoriesTable);
-export type SelectRecipeCategories = z.infer<typeof SelectRecipeCategoriesSchema>
+const selectRecipeCategoriesSchema = createSelectSchema(recipeCategoriesTable);
+export type SelectRecipeCategories = z.infer<typeof selectRecipeCategoriesSchema>
