@@ -1,4 +1,5 @@
 import { IngredientInput, RecipeInput } from "./RecipeForm";
+import { insertRecipeSchema } from "@/lib/schema";
 
 export function validateRecipe(recipeInput: RecipeInput): string | undefined {
     // Prep time conversion and validation

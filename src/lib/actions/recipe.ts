@@ -4,11 +4,12 @@ import { Ingredient, InsertRecipe, SelectRecipe } from "../schema";
 import { createRecipe } from "../services/recipeService";
 import { createIngredients } from "../services/ingredientsService";
 import { IngredientInput, RecipeInput } from "@/app/recipes/new/RecipeForm";
+import { insertRecipeSchema } from "../schema";
 import slugify from "slugify"
 import { auth } from "../utils/auth";
 import { headers } from "next/headers";
 
-export async function createRecipeAction(recipeInput: RecipeInput): Promise<SelectRecipe> {
+export async function createRecipeAction(recipeInput: RecipeInput): Promise<{ error: string } | SelectRecipe> {
 
     const session = await auth.api.getSession({ headers: await headers() });
 
@@ -28,8 +29,13 @@ export async function createRecipeAction(recipeInput: RecipeInput): Promise<Sele
         cookTime: cookTime,
         servings: servingsNum
     }
+
+    const result = insertRecipeSchema.safeParse(recipe);
+    if (!result.success) {
+        return { error: result.error.issues[0].message };
+    }
     
-    return await createRecipe(recipe);
+    return await createRecipe(result.data);
 }
 
 export async function createIngredientsAction(ingredientsInput: IngredientInput[], recipeId: number): Promise<Ingredient[]> {

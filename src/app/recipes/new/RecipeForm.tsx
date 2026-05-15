@@ -57,6 +57,9 @@ export default function RecipeForm() {
     const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        setRecipeError("");
+        setIngredientError("");
+
         // Recipe validation
         const recipeInput: RecipeInput = {
             title: title,
@@ -81,8 +84,13 @@ export default function RecipeForm() {
         }
 
         setLoading(true)
-        const createdRecipe = await createRecipeAction(recipeInput);
-        console.log(await createIngredientsAction(ingredientsInput, createdRecipe.id));
+        const result = await createRecipeAction(recipeInput);
+        if ("error" in result) {
+            setRecipeError(result.error);
+            setLoading(false);
+            return;
+        }
+        console.log(await createIngredientsAction(ingredientsInput, result.id));
         //router.push(`/recipes/${createdRecipe.id}`);
         setLoading(false);
     }
