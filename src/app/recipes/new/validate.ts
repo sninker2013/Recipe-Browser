@@ -1,108 +1,61 @@
-import { Ingredient, InsertRecipe, insertRecipeSchema } from "@/lib/schema";
-import slugify from "slugify"
-import { IngredientInput } from "./RecipeForm";
+import { IngredientInput, RecipeInput } from "./RecipeForm";
 
-export function validateRecipe(
-    title: string,
-    description: string,
-    author: string,
-    prepHrs: string,
-    prepMins: string,
-    cookHrs: string,
-    cookMins: string,
-    servings: string
-): {recipe: InsertRecipe, recipeErr: string | undefined} {
-    let recipeErr: string | undefined
-
+export function validateRecipe(recipeInput: RecipeInput): string | undefined {
     // Prep time conversion and validation
-    if (prepHrs === "" && prepMins === "") {
-        recipeErr = "Prep time cannot be empty"
-        return {recipe: {} as InsertRecipe, recipeErr}
+    if (recipeInput.prepHrs === "" && recipeInput.prepMins === "") {
+        return "Prep time cannot be empty"
     }
 
-    const prepHrsNum = Number(prepHrs)
-    const prepMinsNum = Number(prepMins)
+    const prepHrsNum = Number(recipeInput.prepHrs)
+    const prepMinsNum = Number(recipeInput.prepMins)
     if (isNaN(prepHrsNum) || isNaN(prepMinsNum)) {
-        recipeErr = "Prep time must be numeric"
-        return {recipe: {} as InsertRecipe, recipeErr}
+        return "Prep time must be numeric"
     }
     if (prepHrsNum > 99) {
-        recipeErr = "Prep time hours must be less than 100"
-        return {recipe: {} as InsertRecipe, recipeErr}
+        return "Prep time hours must be less than 100"
     }
     if (prepMinsNum >= 60) {
-        recipeErr = "Prep time minutes needs to be less than 60"
-        return {recipe: {} as InsertRecipe, recipeErr}
+        return "Prep time minutes needs to be less than 60"
     }
 
     // Cook time conversion and validation
-    if (cookHrs === "" && cookMins === "") {
-        recipeErr = "Cook time cannot be empty"
-        return {recipe: {} as InsertRecipe, recipeErr}
+    if (recipeInput.cookHrs === "" && recipeInput.cookMins === "") {
+        return "Cook time cannot be empty"
     }
 
-    const cookHrsNum = Number(cookHrs)
-    const cookMinsNum = Number(cookMins)
+    const cookHrsNum = Number(recipeInput.cookHrs)
+    const cookMinsNum = Number(recipeInput.cookMins)
     if (isNaN(cookHrsNum) || isNaN(cookMinsNum)) {
-        recipeErr = "Cook time must be numeric"
-        return {recipe: {} as InsertRecipe, recipeErr}
+        return "Cook time must be numeric"
     }
     if (cookHrsNum > 99) {
-        recipeErr = "Cook time hours must be less than 100"
-        return {recipe: {} as InsertRecipe, recipeErr}
+        return "Cook time hours must be less than 100"
     }
     if (cookMinsNum >= 60) {
-        recipeErr = "Cook time minutes needs to be less than 60"
-        return {recipe: {} as InsertRecipe, recipeErr}
+        return "Cook time minutes needs to be less than 60"
     }
-
-    const prepTime = `${prepHrs.padStart(2, "0")}:${prepMins.padStart(2, "0")}`
-    const cookTime = `${cookHrs.padStart(2, "0")}:${cookMins.padStart(2, "0")}`
 
     // Servings validation
-    if (servings === "") {
-        recipeErr = "Servings cannot be empty"
-        return {recipe: {} as InsertRecipe, recipeErr}
+    if (recipeInput.servings === "") {
+        return "Servings cannot be empty"
     }
 
-    const servingsNum = Number(servings)
+    const servingsNum = Number(recipeInput.servings)
     if (isNaN(servingsNum)) {
-        recipeErr = "Servings must be numeric"
-        return {recipe: {} as InsertRecipe, recipeErr}
+        return "Servings must be numeric"
     }
     if (servingsNum > 99) {
-        recipeErr = "Servings need to be less than 100"
-        return {recipe: {} as InsertRecipe, recipeErr}
+        return "Servings need to be less than 100"
     }
     if (servingsNum == 0) {
-        recipeErr = "Servings need to be at least 1"
-        return {recipe: {} as InsertRecipe, recipeErr}
+        return "Servings need to be at least 1"
     }
-    const recipe: InsertRecipe = {
-        title: title,
-        slug: slugify(title),
-        description: description,
-        author: author,
-        prepTime: prepTime,
-        cookTime: cookTime,
-        servings: servingsNum
-    }
-    const result = insertRecipeSchema.safeParse(recipe);
-    if (!result.success) {
-        return { recipe: {} as InsertRecipe, recipeErr: result.error?.issues[0].message}
-    }
-    return { recipe, recipeErr }
 }
 
 export function validateIngredients(ingredientsInput: IngredientInput[]): string | undefined {
-    let error
-
     for (let i = 0; i < ingredientsInput.length; i++) {
         if (ingredientsInput[i].name.trim() === "") {
-            error = "Ingredient name cannot be empty"
-            return error;
+            return "Ingredient name cannot be empty"
         }
     }
-
-    return error
 }

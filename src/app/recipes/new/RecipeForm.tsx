@@ -7,15 +7,26 @@ import { useRouter } from "next/navigation";
 import { createRecipeAction, createIngredientsAction } from "@/lib/actions/recipe";
 import IngredientsForm from "./(ingredients)/IngredientsForm";
 
+export type RecipeInput = {
+    title: string,
+    description: string,
+    prepHrs: string,
+    prepMins: string,
+    cookHrs: string,
+    cookMins: string,
+    servings: string
+}
+
 /*
-Since the ingredient form won't have access to the ID, making the ingredients useState
-its own type will simplify the form process and we will convert that into an Ingredients array in validation.
+Since the ingredient form won't have access to the recipe ID, making the ingredients useState
+its own type will simplify the form process and we will convert that into an Ingredients array in its action.
 */
 export type IngredientInput = {
     id: number
     name: string,
     amount: string
 }
+
 
 export default function RecipeForm() {
 
@@ -46,17 +57,17 @@ export default function RecipeForm() {
     const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-
-        // The user should always have a username and be logged in, but it gets mad if I dont check
-        if (!session?.user.username) {
-            setRecipeError("You must be logged in to create a recipe.");
-            return;
-        }
-
         // Recipe validation
-        const {recipe, recipeErr } = validate.validateRecipe(
-            title, description, session.user.username, prepHrs, prepMins, cookHrs, cookMins, servings
-        );
+        const recipeInput: RecipeInput = {
+            title: title,
+            description: description,
+            prepHrs: prepHrs,
+            prepMins: prepMins,
+            cookHrs: cookHrs,
+            cookMins: cookMins,
+            servings: servings
+        }
+        const recipeErr = validate.validateRecipe(recipeInput);
         if (recipeErr) {
             setRecipeError(recipeErr);
             return;
@@ -70,9 +81,9 @@ export default function RecipeForm() {
         }
 
         setLoading(true)
-        const createdRecipe = await createRecipeAction(recipe);
+        const createdRecipe = await createRecipeAction(recipeInput);
         console.log(await createIngredientsAction(ingredientsInput, createdRecipe.id));
-        router.push(`/recipes/user/${session.user.username}`);
+        //router.push(`/recipes/${createdRecipe.id}`);
         setLoading(false);
     }
 
