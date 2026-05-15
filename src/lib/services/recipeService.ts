@@ -60,6 +60,7 @@ export async function createRecipe(recipe: InsertRecipe) {
         return result
     } catch (e) {
         console.error(e)
+        throw e
     }
 }
 
@@ -73,6 +74,6 @@ export async function getRecipesByAuthor(author: string | null | undefined): Pro
         return recipes
     } catch (e) {
         console.error(e)
-        throw new Error
+        throw e
     }
 }

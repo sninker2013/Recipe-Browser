@@ -41,8 +41,15 @@ export function SignUpForm() {
             onSuccess: () => {router.push("/dashboard")},
             onError: (ctx) => {
                 const ctxError = ctx.error.message
+                if (ctx.error.status === 500) {
+                    setError("Could not connect to the database. Make sure Docker is running.");
+                    setLoading(false)
+                    return;
+                }
                 if (ctxError.includes("body.email")) {
                     setError("Please enter a valid email address.")
+                    setLoading(false)
+                    return;
                 } else {
                     setError(ctxError)
                 };

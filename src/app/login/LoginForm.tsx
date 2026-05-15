@@ -6,7 +6,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 
-export default function SignInForm() {
+export default function LoginForm() {
     const router = useRouter()
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
@@ -23,6 +23,11 @@ export default function SignInForm() {
             onRequest: () => setLoading(true),
             onSuccess: () => {router.push("/dashboard")},
             onError: (ctx) => {
+                if (ctx.error.status === 500) {
+                    setError("Could not connect to the database. Make sure Docker is running.");
+                    setLoading(false);
+                    return
+                }
                 setError(ctx.error.message);
                 setLoading(false);
             },
