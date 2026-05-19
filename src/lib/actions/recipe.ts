@@ -1,13 +1,14 @@
 'use server'
 
-import { Ingredient, InsertRecipe, SelectRecipe } from "../schema";
+import { Direction, Ingredient, InsertRecipe, SelectRecipe } from "../schema";
 import { createRecipe } from "../services/recipeService";
 import { createIngredients } from "../services/ingredientsService";
-import { IngredientInput, RecipeInput } from "@/app/recipes/new/RecipeForm";
+import { DirectionInput, IngredientInput, RecipeInput } from "@/app/recipes/new/RecipeForm";
 import { insertRecipeSchema } from "../schema";
 import slugify from "slugify"
 import { auth } from "../utils/auth";
 import { headers } from "next/headers";
+import { createDirections } from "../services/directionsService";
 
 export async function createRecipeAction(recipeInput: RecipeInput): Promise<{ error: string } | SelectRecipe> {
 
@@ -48,4 +49,15 @@ export async function createIngredientsAction(ingredientsInput: IngredientInput[
     }))
 
     return await createIngredients(ingredients)
+}
+
+export async function createDirectionsAction(directionsInput: DirectionInput[], recipeId: number): Promise<Direction[]> {
+    const directions: Direction[] = 
+    directionsInput.map((direction, index) => ({
+        recipeId: recipeId,
+        position: index + 1,
+        instruction: direction.instruction
+    }))
+
+    return await createDirections(directions)
 }

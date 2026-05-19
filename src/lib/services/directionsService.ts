@@ -1,6 +1,7 @@
+import { dir } from "console";
 import { db } from "../db";
 import { directionsTable, } from "../db/schema/schema";
-import { SelectDirection } from "../schema";
+import { Direction } from "../schema";
 import { eq } from "drizzle-orm";
 
 /**
@@ -10,8 +11,8 @@ import { eq } from "drizzle-orm";
  * @throws Will throw an error if there is a problem connecting to the database
  *      or if the directions are not found for the recipe.
  */
-export async function getDirectionsByRecipeId(recipeId: number): Promise<SelectDirection[]> {
-    let directions: SelectDirection[] = []
+export async function getDirectionsByRecipeId(recipeId: number): Promise<Direction[]> {
+    let directions: Direction[] = []
     try {
             directions = await db.select().from(directionsTable)
             .where(eq(directionsTable.recipeId, recipeId))
@@ -24,4 +25,14 @@ export async function getDirectionsByRecipeId(recipeId: number): Promise<SelectD
     }
     directions.sort((a, b) => a.position - b.position)
     return directions;
+}
+
+export async function createDirections(directions: Direction[]): Promise<Direction[]> {
+    try {
+        const results = await db.insert(directionsTable).values(directions).returning();
+        return results
+    } catch (e) {
+        console.error(e)
+        throw e
+    }
 }

@@ -1,4 +1,4 @@
-import { IngredientInput, RecipeInput } from "./RecipeForm";
+import { DirectionInput, IngredientInput, RecipeInput } from "./RecipeForm";
 import { insertRecipeSchema } from "@/lib/schema";
 
 export function validateRecipe(recipeInput: RecipeInput): string | undefined {
@@ -54,9 +54,24 @@ export function validateRecipe(recipeInput: RecipeInput): string | undefined {
 }
 
 export function validateIngredients(ingredientsInput: IngredientInput[]): string | undefined {
-    for (let i = 0; i < ingredientsInput.length; i++) {
-        if (ingredientsInput[i].name.trim() === "") {
+    if (ingredientsInput.length === 0) {
+        return "At least 1 ingredient is required"
+    }
+    for (const ingredient of ingredientsInput) {
+        if (ingredient.name.trim() === "") {
             return "Ingredient name cannot be empty"
+        }
+    }
+}
+
+export function validateDirections(directionsInput: DirectionInput[]): string | undefined {
+    if (directionsInput.length === 0) {
+        return "At least 1 direction is required"
+    }
+    console.log(directionsInput)
+    for (const direction of directionsInput) {
+        if (direction.instruction.trim() === "") {
+            return "Direction cannot be empty"
         }
     }
 }

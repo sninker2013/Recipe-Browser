@@ -4,9 +4,14 @@ import { useState } from "react"
 import * as validate from "./validate"
 import { authClient } from "@/lib/utils/auth-client";
 import { useRouter } from "next/navigation";
-import { createRecipeAction, createIngredientsAction } from "@/lib/actions/recipe";
+import * as recipeActions from "@/lib/actions/recipe";
 import IngredientsForm from "./(ingredients)/IngredientsForm";
+import DirectionsForm from "./(directions)/DirectionsForm";
 
+/* 
+This type will be used to validate the recipe form and will be converted into the correct format
+after validation within the recipe action.
+*/
 export type RecipeInput = {
     title: string,
     description: string,
@@ -20,11 +25,18 @@ export type RecipeInput = {
 /*
 Since the ingredient form won't have access to the recipe ID, making the ingredients useState
 its own type will simplify the form process and we will convert that into an Ingredients array in its action.
+Additionally, A generated id is required to reference which ingredient to delete when the button is pressed.
 */
 export type IngredientInput = {
-    id: number
+    id: number,
     name: string,
     amount: string
+}
+
+// See ingredients explanation above.
+export type DirectionInput = {
+    id: number,
+    instruction: string
 }
 
 
@@ -39,18 +51,23 @@ export default function RecipeForm() {
     const [cookMins, setCookMins] = useState<string>("");
     const [servings, setServings] = useState<string>("");
     
-    // Ingredients form states
+    // Ingredients and direction form states
+    // We initialize one value so that there is an empty form element on a new form load.
     const [ingredientsInput, setIngredientsInput] = useState<IngredientInput[]>([{id: Date.now(), name: "", amount: ""}])
+    const [directionsInput, setDirectionsInput] = useState<DirectionInput[]>([{id: Date.now(), instruction: ""}])
 
     // Errors
     const [recipeError, setRecipeError] = useState<string>("");
-    const [ingredientError, setIngredientError] = useState<string>("")
+    const [ingredientError, setIngredientError] = useState<string>("");
+    const [directionError, setDirectionError] = useState<string>("")
 
+    // Mostly used for disabling the submit button when the form is being submitted.
     const [loading, setLoading] = useState<boolean>(false)
+
     const router = useRouter()
 
     // Displays Loading page if the session is pending
-    const {data: session, isPending} = authClient.useSession();
+    const {isPending} = authClient.useSession();
         if (isPending) return null
 
 
@@ -80,18 +97,27 @@ export default function RecipeForm() {
         const ingredientErr = validate.validateIngredients(ingredientsInput)
         if (ingredientErr) {
             setIngredientError(ingredientErr);
+            setLoading(false);
+            return;
+        }
+
+        const directionErr = validate.validateDirections(directionsInput)
+        if (directionErr) {
+            setDirectionError(directionErr)
+            setLoading(false);
             return;
         }
 
         setLoading(true)
-        const result = await createRecipeAction(recipeInput);
+        const result = await recipeActions.createRecipeAction(recipeInput);
         if ("error" in result) {
             setRecipeError(result.error);
             setLoading(false);
             return;
         }
-        console.log(await createIngredientsAction(ingredientsInput, result.id));
-        //router.push(`/recipes/${createdRecipe.id}`);
+        await recipeActions.createIngredientsAction(ingredientsInput, result.id);
+        await recipeActions.createDirectionsAction(directionsInput, result.id)
+        router.push(`/recipes/${result.id}`);
         setLoading(false);
     }
 
@@ -150,6 +176,11 @@ export default function RecipeForm() {
             setIngredients={setIngredientsInput}>
         </IngredientsForm>
         {ingredientError && <p className="text-red-500 mt-4">{ingredientError}</p>}
+        <DirectionsForm
+            directions={directionsInput}
+            setDirections={setDirectionsInput}> 
+        </DirectionsForm>
+        {directionError && <p className="text-red-500 mt-4">{directionError}</p>}
         <button type="submit" disabled={loading} className="rounded bg-blue-400 p-3 pl-7 pr-7 m-3 w-40 place-self-center">{loading ? "Submitting..." : "Submit"}</button>
     </form>)
 }

@@ -15,7 +15,7 @@ const selectCategorySchema = createSelectSchema(categoriesTable);
 export type SelectCategory = z.infer<typeof selectCategorySchema>
 
 const selectDirectionsSchema = createSelectSchema(directionsTable);
-export type SelectDirection = z.infer<typeof selectDirectionsSchema>
+export type Direction = z.infer<typeof selectDirectionsSchema>
 
 const ingredientsSchema = createInsertSchema(ingredientsTable);
 export type Ingredient = z.infer<typeof ingredientsSchema>

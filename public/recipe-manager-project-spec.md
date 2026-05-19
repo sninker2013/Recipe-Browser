@@ -407,21 +407,21 @@ Use this checklist to track your progress toward completing the minimum viable p
 ### Recipe Creation
 - [/] Create recipe page accessible (authenticated only)
 - [/] Form includes all basic recipe fields
-- [ ] Can add ingredient fields dynamically
-- [ ] Can remove ingredient fields
+- [/] Can add ingredient fields dynamically
+- [/] Can remove ingredient fields
 - [ ] Can add direction/step fields dynamically
 - [ ] Can remove direction/step fields
 - [ ] Can select multiple categories
 - [ ] Client-side validation works
 - [ ] Server-side validation works
-- [ ] Loading state displays during submission
+- [/] Loading state displays during submission
 - [ ] Recipe creates successfully with all relationships
-- [ ] Ingredients save with correct order
+- [/] Ingredients save with correct order
 - [ ] Directions save with correct numbering
 - [ ] Categories link correctly (many-to-many)
 - [ ] Redirects to recipe page after creation
-- [ ] Error messages display appropriately
-- [ ] Created recipe shows creator's name
+- [/] Error messages display appropriately
+- [/] Created recipe shows creator's name
 
 ### Code Quality & Organization
 - [ ] Server Components used for data fetching

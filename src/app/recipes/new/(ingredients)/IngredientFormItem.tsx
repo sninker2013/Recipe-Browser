@@ -5,12 +5,10 @@ export default function IngredientFormItem({
     deleteIngredient,
     id,
 }: {
-    updateIngredient: (id: number, field: keyof IngredientInput, value: string) => void,
+    updateIngredient: (id: number, field: keyof IngredientInput, value: string) => void
     deleteIngredient: (id: number) => void
     id: number
 }) {
-
-
     return(<div className="flex flex-initial items-center">
         <h3 className="text-xl text-left w-32 font-bold mr-2">Amount:</h3>
         <input id={`ingredientAmount-${id}`} name={`ingredientAmount-${id}`}
