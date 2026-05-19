@@ -24,9 +24,9 @@ export default async function RecipePage({
         <h2 className="text-center m-5">{recipe.title}</h2>
         <h3 className="text-center m-5 mt-2">By {recipe.author}</h3>
         <CategoryTags categories={categories}></CategoryTags>
-        <p className="m-5">{recipe.description}</p>
+        <p className="m-5 ml-28">{recipe.description}</p>
         <div className="flex justify-around">
-            <div className="flex flex-col justify-between text-center border-2 border-gray-300 p-7 m-3 rounded-xl gap-4">
+            <div className="flex flex-col justify-between text-center border-2 border-gray-300 p-7 m-3 rounded-xl gap-4 self-center">
                 <h3>Prep Time: {formatInterval(recipe.prepTime)}</h3>
                 <h3>Cook Time: {formatInterval(recipe.cookTime)}</h3>
                 <h3>Servings: {recipe.servings}</h3>

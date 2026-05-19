@@ -13,7 +13,7 @@ export async function IngredientList({
     }
     
     return(
-        <div>
+        <div className="flex flex-col justify-between border-2 border-gray-300 p-7 m-3 rounded-xl gap-4">
     <h3 className="text-center m-5">Ingredients</h3>
     <ul className="list-disc m-5">
         {ingredients.map((ingredient: Ingredient) => (

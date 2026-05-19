@@ -1,5 +1,5 @@
 import { getDirectionsByRecipeId } from "@/lib/services/directionsService";
-import { SelectDirection } from "@/lib/schema";
+import { Direction } from "@/lib/schema";
 import notFound from "@/app/recipes/[id]/notFound";
 
 export async function DirectionsList({
@@ -7,14 +7,14 @@ export async function DirectionsList({
 }: {
     id: number
 }) {
-    const directions: SelectDirection[] = await getDirectionsByRecipeId(id)
+    const directions: Direction[] = await getDirectionsByRecipeId(id)
     if (!directions || directions.length === 0) {
         return notFound("directions");
     }
 
     return(
-        <ol className="list-decimal list-inside m-5">
-            {directions.map((direction: SelectDirection) => (
+        <ol className="list-decimal list-inside m-5 ml-28">
+            {directions.map((direction: Direction) => (
                 <li key={`${direction.recipeId}-${direction.position}`}>
                     {direction.instruction}
                 </li>
