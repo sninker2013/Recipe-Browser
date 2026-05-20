@@ -12,7 +12,7 @@ export const insertRecipeSchema = createInsertSchema(recipesTable, {
 export type InsertRecipe = z.infer<typeof insertRecipeSchema>
 
 const selectCategorySchema = createSelectSchema(categoriesTable);
-export type SelectCategory = z.infer<typeof selectCategorySchema>
+export type Category = z.infer<typeof selectCategorySchema>
 
 const selectDirectionsSchema = createSelectSchema(directionsTable);
 export type Direction = z.infer<typeof selectDirectionsSchema>

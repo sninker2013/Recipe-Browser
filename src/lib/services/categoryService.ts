@@ -1,6 +1,6 @@
 import { db } from "../db";
 import { categoriesTable, recipeCategoriesTable } from "../db/schema/schema";
-import { SelectCategory } from "../schema";
+import { Category } from "../schema";
 import { eq, inArray } from "drizzle-orm";
 
 /**
@@ -8,7 +8,7 @@ import { eq, inArray } from "drizzle-orm";
  * @returns (Category[]) - An array of all the categories in the database.
  * @throws Will throw an error if there is a problem connecting to the database.
  */
-export async function getAllCategories(): Promise<SelectCategory[]> {
+export async function getAllCategories(): Promise<Category[]> {
     try {
         return await db.select().from(categoriesTable);
     } catch (e) {
@@ -23,7 +23,7 @@ export async function getAllCategories(): Promise<SelectCategory[]> {
  * @throws Will throw an error if there is a problem connecting to the database 
  *  or if the category is not found.
  */
-export async function getCategoryBySlug(slug: string): Promise<SelectCategory> {
+export async function getCategoryBySlug(slug: string): Promise<Category> {
     try {
         const category = await db.select().from(categoriesTable)
         .where(eq(categoriesTable.slug, slug))
@@ -41,7 +41,7 @@ export async function getCategoryBySlug(slug: string): Promise<SelectCategory> {
  * @throws Will throw an error if there is a problem connecting to the database 
  *  or if the categories are not found for the recipe.
  */
-export async function getCategoriesByRecipeId(recipeId: number): Promise<SelectCategory[]> {
+export async function getCategoriesByRecipeId(recipeId: number): Promise<Category[]> {
     try {
             const recipeCategories = await db.select().from(recipeCategoriesTable)
             .where(eq(recipeCategoriesTable.recipeId, recipeId))

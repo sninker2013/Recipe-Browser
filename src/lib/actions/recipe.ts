@@ -1,14 +1,15 @@
 'use server'
 
-import { Direction, Ingredient, InsertRecipe, SelectRecipe } from "../schema";
+import { Category, Direction, Ingredient, InsertRecipe, SelectRecipe } from "../schema";
 import { createRecipe } from "../services/recipeService";
 import { createIngredients } from "../services/ingredientsService";
-import { DirectionInput, IngredientInput, RecipeInput } from "@/app/recipes/new/RecipeForm";
+import { createDirections } from "../services/directionsService";
+import { getAllCategories } from "../services/categoryService";
+import { DirectionForm, IngredientForm, RecipeInput } from "@/app/recipes/new/MainRecipeForm";
 import { insertRecipeSchema } from "../schema";
 import slugify from "slugify"
 import { auth } from "../utils/auth";
 import { headers } from "next/headers";
-import { createDirections } from "../services/directionsService";
 
 export async function createRecipeAction(recipeInput: RecipeInput): Promise<{ error: string } | SelectRecipe> {
 
@@ -39,7 +40,7 @@ export async function createRecipeAction(recipeInput: RecipeInput): Promise<{ er
     return await createRecipe(result.data);
 }
 
-export async function createIngredientsAction(ingredientsInput: IngredientInput[], recipeId: number): Promise<Ingredient[]> {
+export async function createIngredientsAction(ingredientsInput: IngredientForm[], recipeId: number): Promise<Ingredient[]> {
     const ingredients: Ingredient[] = 
     ingredientsInput.map((ingredient, index) => ({
         recipeId: recipeId,
@@ -51,7 +52,7 @@ export async function createIngredientsAction(ingredientsInput: IngredientInput[
     return await createIngredients(ingredients)
 }
 
-export async function createDirectionsAction(directionsInput: DirectionInput[], recipeId: number): Promise<Direction[]> {
+export async function createDirectionsAction(directionsInput: DirectionForm[], recipeId: number): Promise<Direction[]> {
     const directions: Direction[] = 
     directionsInput.map((direction, index) => ({
         recipeId: recipeId,
@@ -60,4 +61,8 @@ export async function createDirectionsAction(directionsInput: DirectionInput[], 
     }))
 
     return await createDirections(directions)
+}
+
+export async function getAllCategoriesAction(): Promise<Category[]> {
+    return getAllCategories()
 }
