@@ -11,12 +11,14 @@ export default function DirectionsForm({
     directions: DirectionForm[];
     setDirections: React.Dispatch<React.SetStateAction<DirectionForm[]>>;
 }) {
+    // Updates a single direction when the user types an instruction
     const updateDirection = (id: number, instruction: string) => {
         setDirections(directions.map((direction) => 
             direction.id === id ? { ...direction, instruction: instruction } : direction
         ));
     }
 
+    // Deletes a direction when the delete button is pressed
     const deleteDirection = (id: number) => {
         setDirections(directions.filter(ingredient => ingredient.id !== id))
     }
@@ -24,7 +26,7 @@ export default function DirectionsForm({
     const directionItems: React.JSX.Element[] =
     directions.map((direction, index) => (
         <DirectionFormItem
-            ingredientIndex={index}
+            index={index}
             key={direction.id}
             id={direction.id}
             updateDirection={updateDirection}

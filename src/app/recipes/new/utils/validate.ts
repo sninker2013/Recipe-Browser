@@ -2,9 +2,6 @@ import { DirectionForm, IngredientForm, RecipeInput } from "../RecipeForm";
 
 export function validateRecipe(recipeInput: RecipeInput): string | undefined {
     // Prep time conversion and validation
-    if (recipeInput.prepHrs === "" && recipeInput.prepMins === "") {
-        return "Prep time cannot be empty"
-    }
     const prepHrsNum = Number(recipeInput.prepHrs)
     const prepMinsNum = Number(recipeInput.prepMins)
     if (isNaN(prepHrsNum) || isNaN(prepMinsNum)) {
@@ -18,10 +15,6 @@ export function validateRecipe(recipeInput: RecipeInput): string | undefined {
     }
 
     // Cook time conversion and validation
-    if (recipeInput.cookHrs === "" && recipeInput.cookMins === "") {
-        return "Cook time cannot be empty"
-    }
-
     const cookHrsNum = Number(recipeInput.cookHrs)
     const cookMinsNum = Number(recipeInput.cookMins)
     if (isNaN(cookHrsNum) || isNaN(cookMinsNum)) {

@@ -11,12 +11,19 @@ export default function IngredientsForm({
     ingredients: IngredientForm[];
     setIngredients: React.Dispatch<React.SetStateAction<IngredientForm[]>>;
 }) {
+    /**
+     * Updates an ingredient field
+     * @param id - The id of the ingredient
+     * @param field - The field the user is typing in. either name or amount
+     * @param value - what the user has typed
+     */
     const updateIngredient = (id: number, field: keyof IngredientForm, value: string) => {
         setIngredients(ingredients.map(ingredient => (
             ingredient.id === id ? { ...ingredient, [field]: value } : ingredient
         )));
     }
 
+    // Deletes a direction when the delete button is pressed
     const deleteIngredient = (id: number) => {
         setIngredients(ingredients.filter(ingredient => ingredient.id !== id))
     }

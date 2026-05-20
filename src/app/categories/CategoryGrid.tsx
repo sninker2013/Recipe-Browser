@@ -1,14 +1,19 @@
 import { Category } from "@/lib/schema";
 import { getAllCategories } from "@/lib/services/categoryService";
 
-import CategoryItem from "./CategoryCard";
+import CategoryCard from "./CategoryCard";
 
+/**
+ * Displays the category cards in a grid
+ * @see {@link CategoryCard}
+ * @returns 
+ */
 export default async function Categories() {
     const categoryItems: React.JSX.Element[] = []
     const categories: Category[] = await getAllCategories(); 
 
     categories.forEach((category: Category) => {
-        categoryItems.push(<CategoryItem
+        categoryItems.push(<CategoryCard
         category={category}
         key={`${category.id}`}/>)
     })

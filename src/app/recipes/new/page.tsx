@@ -8,6 +8,8 @@ export default async function CreateRecipePage() {
     return(
         <section className="text-center m-5">
             <h2>Create a Custom Recipe</h2>
+            {/* We add the isChecked property to allow form submission with just one object type
+                instead of having both Category and CategoryForm*/}
             <RecipeForm initialCategories={categories.map(c => ({ ...c, isChecked: false }))}></RecipeForm>
         </section>
     )

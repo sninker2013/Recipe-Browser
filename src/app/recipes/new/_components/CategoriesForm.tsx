@@ -2,6 +2,12 @@
 
 import { CategoryForm } from "../RecipeForm"
 
+/**
+ * Form elements for the categories of a recipe.
+ * @param categories - list of all available categories, each extended with isChecked 
+ * to track checkbox state in the form
+ * @param setCategories - state setter from the parent form, used to toggle isChecked on a category
+ */
 export default function CategoriesForm({
     categories,
     setCategories
@@ -9,18 +15,19 @@ export default function CategoriesForm({
     categories: CategoryForm[],
     setCategories: React.Dispatch<React.SetStateAction<CategoryForm[]>>
 }) {
-    const updateCheck = (slug: string) => {
+    // flips the isChecked bool when the user checks/unchecks a category
+    const updateCheck = (id: number) => {
         setCategories(categories.map(category => (
-            category.slug === slug ? {...category, isChecked: !category.isChecked} : category
+            category.id === id ? {...category, isChecked: !category.isChecked} : category
         )))
     }
     const categoryItems: React.JSX.Element[] =
     categories.map(category => (
-        <div key={category.slug}>
-            <input type="checkbox" id={category.slug} name={category.slug}
-            onChange={() => updateCheck(category.slug)}
+        <div key={category.id}>
+            <input type="checkbox" id={`${category.id}`} name={category.name}
+            onChange={() => updateCheck(category.id)}
             ></input>
-            <label htmlFor={category.slug} className="m-2">{category.name}</label>
+            <label htmlFor={`${category.id}`} className="m-2">{category.name}</label>
         </div>
     )) 
     

@@ -1,16 +1,16 @@
 export default function DirectionFormItem({
-    ingredientIndex,
+    index,
     updateDirection,
     deleteDirection,
     id,
 }: {
-    ingredientIndex: number
+    index: number
     updateDirection: (id: number, instruction: string) => void,
     deleteDirection: (id: number) => void,
     id: number
 }) {
     return(<div className="flex flex-initial items-center">
-        <h3 className="text-xl text-left w-32 font-bold mr-2">{ingredientIndex + 1}.</h3>
+        <h3 className="text-xl text-left w-32 font-bold mr-2">{index + 1}.</h3>
         <textarea id={`${id}`} name={`${id}`} rows={2}
         onChange={e => updateDirection(id, e.target.value)}
         className="border border-black rounded mr-1 w-full resize-none"

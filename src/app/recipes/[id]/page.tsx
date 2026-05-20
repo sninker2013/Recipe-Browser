@@ -8,7 +8,6 @@ import { Category } from "@/lib/schema";
 
 import notFound from "./notFound";
 
-// This page is for displaying a single recipe with the ingredients and directions. 
 export default async function RecipePage({
     params,
 }: {

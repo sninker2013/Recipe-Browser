@@ -3,6 +3,10 @@ import Link from "next/link";
 import { Category } from "@/lib/schema";
 import { getRecipesByCategoryId } from "@/lib/services/recipeService";
 
+/**
+ * Displays a single card for a category, routes to that category's page if clicked on
+ * @param category - the category object to display
+ */
 export default async function CategoryCard({category}: {category: Category}) {
     const recipesInCategory = await getRecipesByCategoryId(category.id);
     return (

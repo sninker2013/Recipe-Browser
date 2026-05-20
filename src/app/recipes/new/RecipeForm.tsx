@@ -51,7 +51,7 @@ export interface CategoryForm extends Category {
 
 export default function RecipeForm({initialCategories}: {initialCategories: CategoryForm[]}) {
 
-    // Recipe from states
+    // Recipe form states
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [prepHrs, setPrepHrs] = useState<string>("");
@@ -65,15 +65,17 @@ export default function RecipeForm({initialCategories}: {initialCategories: Cate
     const [ingredients, setIngredients] = useState<IngredientForm[]>([{id: Date.now(), name: "", amount: ""}])
     const [directions, setDirections] = useState<DirectionForm[]>([{id: Date.now(), instruction: ""}])
 
+    // Categories is different from the others as we need the categories that are predefined
     const [categories, setCategories] = useState<CategoryForm[]>(initialCategories)
 
-    // Errors
+    // Errors from client validation
     const [recipeError, setRecipeError] = useState<string>("");
     const [ingredientError, setIngredientError] = useState<string>("");
     const [directionError, setDirectionError] = useState<string>("")
 
     // Mostly used for disabling the submit button when the form is being submitted.
     const [loading, setLoading] = useState<boolean>(false)
+
     const router = useRouter()
 
     // Displays Loading page if the session is pending
@@ -89,13 +91,13 @@ export default function RecipeForm({initialCategories}: {initialCategories: Cate
 
         // Recipe validation
         const recipeInput: RecipeInput = {
-            title: title,
-            description: description,
-            prepHrs: prepHrs,
-            prepMins: prepMins,
-            cookHrs: cookHrs,
-            cookMins: cookMins,
-            servings: servings
+            title,
+            description,
+            prepHrs,
+            prepMins,
+            cookHrs,
+            cookMins,
+            servings
         }
         const recipeErr = validate.validateRecipe(recipeInput);
         if (recipeErr) {
@@ -107,7 +109,6 @@ export default function RecipeForm({initialCategories}: {initialCategories: Cate
         const ingredientErr = validate.validateIngredients(ingredients)
         if (ingredientErr) {
             setIngredientError(ingredientErr);
-            setLoading(false);
             return;
         }
 
@@ -115,7 +116,6 @@ export default function RecipeForm({initialCategories}: {initialCategories: Cate
         const directionErr = validate.validateDirections(directions)
         if (directionErr) {
             setDirectionError(directionErr)
-            setLoading(false);
             return;
         }
 
