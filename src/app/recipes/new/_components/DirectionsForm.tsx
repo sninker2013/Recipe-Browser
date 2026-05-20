@@ -1,6 +1,6 @@
 'use client'
 
-import { DirectionForm } from "../BaseRecipeForm"
+import { DirectionForm } from "../RecipeForm"
 import DirectionFormItem from "./DirectionFormItem";
 
 export default function DirectionsForm({
@@ -33,6 +33,7 @@ export default function DirectionsForm({
 
     return (<>
         <h3 className="text-2xl font-bold mb-6 text-center">Directions</h3>
+        <p className="italic mb-4 text-gray-500">Make sure to Add the directions in order</p>
         <section className="flex flex-col">
         {directionItems}
         </section>

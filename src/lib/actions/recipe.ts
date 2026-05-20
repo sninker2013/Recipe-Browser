@@ -5,7 +5,7 @@ import { createRecipe } from "../services/recipeService";
 import { createIngredients } from "../services/ingredientsService";
 import { createDirections } from "../services/directionsService";
 import { getAllCategories } from "../services/categoryService";
-import { DirectionForm, IngredientForm, RecipeInput } from "@/app/recipes/new/BaseRecipeForm";
+import { DirectionForm, IngredientForm, RecipeInput } from "@/app/recipes/new/RecipeForm";
 import { insertRecipeSchema } from "../schema";
 import slugify from "slugify"
 import { auth } from "../utils/auth";

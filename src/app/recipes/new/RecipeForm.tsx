@@ -1,14 +1,14 @@
 'use client'
 
 import { useState } from "react"
-import * as validate from "./validate"
+import * as validate from "./utils/validate"
 import { authClient } from "@/lib/utils/auth-client";
 import { useRouter } from "next/navigation";
 import * as recipeActions from "@/lib/actions/recipe";
-import IngredientsForm from "./(ingredients)/IngredientsForm";
-import DirectionsForm from "./(directions)/DirectionsForm";
-import GeneralInfo from "./GeneralInfoForm";
-import CategoriesForm from "./CategoriesForm";
+import IngredientsForm from "./_components/IngredientsForm";
+import DirectionsForm from "./_components/DirectionsForm";
+import GeneralInfo from "./_components/GeneralInfoForm";
+import CategoriesForm from "./_components/CategoriesForm";
 import { Category } from "@/lib/schema";
 
 /* 

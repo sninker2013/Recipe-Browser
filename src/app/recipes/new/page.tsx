@@ -1,4 +1,4 @@
-import RecipeForm from "./BaseRecipeForm";
+import RecipeForm from "./RecipeForm";
 import { getAllCategoriesAction } from "@/lib/actions/recipe";
 
 export default async function CreateRecipePage() {

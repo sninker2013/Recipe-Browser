@@ -1,4 +1,4 @@
-import { DirectionForm, IngredientForm, RecipeInput } from "./BaseRecipeForm";
+import { DirectionForm, IngredientForm, RecipeInput } from "../RecipeForm";
 
 export function validateRecipe(recipeInput: RecipeInput): string | undefined {
     // Prep time conversion and validation
