@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation";
 
 import { authClient } from "@/lib/utils/auth-client";
@@ -52,18 +52,26 @@ export interface CategoryForm extends Category {
 export default function RecipeForm({initialCategories}: {initialCategories: CategoryForm[]}) {
 
     // Recipe form states
-    const [title, setTitle] = useState<string>("");
-    const [description, setDescription] = useState<string>("");
-    const [prepHrs, setPrepHrs] = useState<string>("");
-    const [prepMins, setPrepMins] = useState<string>("");
-    const [cookHrs, setCookHrs] = useState<string>("");
-    const [cookMins, setCookMins] = useState<string>("");
-    const [servings, setServings] = useState<string>("");
+    const [recipeInput, setRecipeInput] = useState<RecipeInput>({
+        title: "",
+        description: "",
+        prepHrs: "",
+        prepMins: "",
+        cookHrs: "",
+        cookMins: "",
+        servings: ""
+    })
     
     // Ingredients and direction form states
     // We initialize one value so that there is an empty form element on a new form load.
-    const [ingredients, setIngredients] = useState<IngredientForm[]>([{id: Date.now(), name: "", amount: ""}])
-    const [directions, setDirections] = useState<DirectionForm[]>([{id: Date.now(), instruction: ""}])
+    const [ingredients, setIngredients] = useState<IngredientForm[]>([])
+    const [directions, setDirections] = useState<DirectionForm[]>([])
+
+    // Date.now() was causing hydration errors without the useEffect
+    useEffect(() => {
+    setIngredients([{id: Date.now(), name: "", amount: ""}])
+    setDirections([{id: Date.now(), instruction: ""}])
+}, [])
 
     // Categories is different from the others as we need the categories that are predefined
     const [categories, setCategories] = useState<CategoryForm[]>(initialCategories)
@@ -89,16 +97,6 @@ export default function RecipeForm({initialCategories}: {initialCategories: Cate
         setRecipeError("");
         setIngredientError("");
 
-        // Recipe validation
-        const recipeInput: RecipeInput = {
-            title,
-            description,
-            prepHrs,
-            prepMins,
-            cookHrs,
-            cookMins,
-            servings
-        }
         const recipeErr = validate.validateRecipe(recipeInput);
         if (recipeErr) {
             setRecipeError(recipeErr);
@@ -130,23 +128,20 @@ export default function RecipeForm({initialCategories}: {initialCategories: Cate
         await recipeActions.createIngredientsAction(ingredients, result.id);
         await recipeActions.createDirectionsAction(directions, result.id);
 
+        // Grabbing the ids of any categories that were selected.
         const selectedCategoryIds = categories
             .filter(category => category.isChecked)
             .map(category => category.id)
-        await recipeActions.addCategoriesAction(result.id, selectedCategoryIds)
+        if (selectedCategoryIds.length > 0){
+            await recipeActions.addCategoriesAction(result.id, selectedCategoryIds)
+        }
         router.push(`/recipes/${result.id}`);
         setLoading(false);
     }
 
     return(<form className=" min-w-4xl max-w-5xl mx-auto mt-10 p-6 border rounded flex flex-col" onSubmit={handleSubmit}>
         <GeneralInfo
-            setTitle={setTitle}
-            setDescription={setDescription}
-            setPrepHrs={setPrepHrs}
-            setPrepMins={setPrepMins}
-            setCookHrs={setCookHrs}
-            setCookMins={setCookMins}
-            setServings={setServings}>
+            setRecipeInput={setRecipeInput}>
         </GeneralInfo>
         {recipeError && <p className="text-red-500 mt-4">{recipeError}</p>}
 

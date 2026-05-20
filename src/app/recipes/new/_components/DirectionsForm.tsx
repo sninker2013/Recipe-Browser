@@ -4,6 +4,9 @@ import { DirectionForm } from "../RecipeForm"
 
 import DirectionFormItem from "./DirectionFormItem";
 
+/**
+ * Dynamically displays {@link DirectionFormItem}'s based on the number of directions in the passed array
+ */
 export default function DirectionsForm({
     directions,
     setDirections

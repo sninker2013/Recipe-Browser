@@ -3,7 +3,6 @@ import Link from "next/link"
 import { SelectRecipe } from "@/lib/schema"
 import { formatInterval } from "@/lib/utils/formatInterval"
 
-// This is a component for displaying a single recipe as a card. It is to be used in the recipe grid.
 export function RecipeItem({recipe}: {recipe: SelectRecipe}) {
     return(
         <Link href={`/recipes/${recipe.id}`} className="hover:">
