@@ -1,6 +1,7 @@
 import { getCategoryBySlug } from "@/lib/services/categoryService";
 import { getRecipesByCategoryId } from "@/lib/services/recipeService";
 import RecipesGrid from "@/components/RecipeGrid";
+
 import notFound from "../notFound";
 
 export default async function CategoryPage({

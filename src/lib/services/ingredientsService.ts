@@ -1,7 +1,8 @@
+import { eq } from "drizzle-orm";
+
 import { db } from "../db";
 import { ingredientsTable, } from "../db/schema/schema";
 import { Ingredient } from "../schema";
-import { eq } from "drizzle-orm";
 
 /**
  * Gets all of the ingredients for a recipe from the database based on the recipe ID.

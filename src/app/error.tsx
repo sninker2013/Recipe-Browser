@@ -1,8 +1,7 @@
 'use client'
 
-export default function Error({ error, reset }: { 
+export default function Error({ error }: { 
     error: Error, 
-    reset: () => void 
 }) {
     return (
         <div className="text-center m-10">

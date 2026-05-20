@@ -1,4 +1,5 @@
 import { SelectRecipe } from "@/lib/schema"
+
 import { RecipeItem } from "./RecipeCard"
 
 // This is a component for displaying a grid of recipes.

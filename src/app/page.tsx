@@ -10,7 +10,7 @@ export default function Home() {
       </p>
       <p className="m-3">This self-directed learning project will build your competency in modern full-stack web 
         development using React 19, Next.js 16+ (App Router), PostgreSQL, and authentication. 
-        You'll create a recipe sharing platform where users can browse recipes publicly and create 
+        {"You'll"} create a recipe sharing platform where users can browse recipes publicly and create 
         their own recipes after authentication.</p>
     </>
   );

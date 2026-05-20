@@ -1,9 +1,10 @@
 'use client'
 
-import { authClient } from "@/lib/utils/auth-client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
+
+import { authClient } from "@/lib/utils/auth-client";
 
 
 export default function LoginForm() {
@@ -61,7 +62,7 @@ export default function LoginForm() {
             </button>
             {error && <p className="text-red-500 mt-4">{error}</p>}
         </form>
-        <p className="pt-3">Don't have an account? <Link href="/signup" className="text-blue-400 underline">Sign Up</Link></p>
-    </section>
+        <p className="pt-3">{"Don't have an account? "}<Link href="/signup" className="text-blue-400 underline">Sign Up</Link></p>
+        </section>
     )
 }

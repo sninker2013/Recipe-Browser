@@ -1,6 +1,7 @@
 'use client'
 
 import { IngredientForm } from "../RecipeForm";
+
 import IngredientFormItem from "./IngredientFormItem";
 
 export default function IngredientsForm({
@@ -33,7 +34,7 @@ export default function IngredientsForm({
     return(<>
     <h3 className="text-2xl font-bold mb-6 text-center">Ingredients</h3>
     <p className="italic mb-4 text-gray-500">
-        Add all the ingredients for the recipe. If you don't want a specific amount, just leave it blank!
+        {"Add all the ingredients for the recipe. If you don't want a specific amount, just leave it blank!"}
         <br/>ex. a pinch of salt
     </p>
     <section className="flex flex-col">

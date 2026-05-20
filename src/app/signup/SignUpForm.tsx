@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from "react";
-import { authClient } from "@/lib/utils/auth-client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+
+import { authClient } from "@/lib/utils/auth-client";
 
 export function SignUpForm() {
     const router = useRouter()
@@ -22,14 +23,14 @@ export function SignUpForm() {
         }
 
         // Checks if the username is available
-        const { data: response, error: userError } = await authClient.isUsernameAvailable({
+        const { data: response } = await authClient.isUsernameAvailable({
             username: username,
         });
         if (!response?.available) {
             setError("Username is already taken. Please choose another one.");
             return;
         }
-
+        
         // Main sign-up logic using better-auth client
         const {} = await authClient.signUp.email({
             email: email,

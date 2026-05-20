@@ -1,8 +1,8 @@
-import { dir } from "console";
+import { eq } from "drizzle-orm";
+
 import { db } from "../db";
 import { directionsTable, } from "../db/schema/schema";
 import { Direction } from "../schema";
-import { eq } from "drizzle-orm";
 
 /**
  * Gets all of the directions for a recipe from the database based on the recipe ID.

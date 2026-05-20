@@ -1,7 +1,8 @@
+import { eq, getTableColumns } from "drizzle-orm";
+
 import { db } from "../db";
 import { recipesTable, recipeCategoriesTable } from "../db/schema/schema";
 import { SelectRecipe, InsertRecipe } from "../schema";
-import { eq, getTableColumns } from "drizzle-orm";
 
 /**
  * Gets all the recipes from the database.

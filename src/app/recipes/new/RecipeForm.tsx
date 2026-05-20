@@ -1,15 +1,18 @@
 'use client'
 
 import { useState } from "react"
-import * as validate from "./utils/validate"
-import { authClient } from "@/lib/utils/auth-client";
 import { useRouter } from "next/navigation";
+
+import { authClient } from "@/lib/utils/auth-client";
 import * as recipeActions from "@/lib/actions/recipe";
+import { Category } from "@/lib/schema";
+
+import * as validate from "./utils/validate"
 import IngredientsForm from "./_components/IngredientsForm";
 import DirectionsForm from "./_components/DirectionsForm";
 import GeneralInfo from "./_components/GeneralInfoForm";
 import CategoriesForm from "./_components/CategoriesForm";
-import { Category } from "@/lib/schema";
+
 
 /* 
 This type will be used to validate the recipe form and will be converted into the correct format

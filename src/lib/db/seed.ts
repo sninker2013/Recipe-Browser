@@ -1,14 +1,16 @@
 import 'dotenv/config';
+import { exit } from 'process';
+
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from "pg"
-import { categoriesTable, recipesTable, ingredientsTable, recipeCategoriesTable, directionsTable } from './schema/schema';
-import { SelectRecipe, SelectCategory } from '../schema';
 
+import { SelectRecipe, Category } from '../schema';
+
+import { categoriesTable, recipesTable, ingredientsTable, recipeCategoriesTable, directionsTable } from './schema/schema';
 import { categoryData, recipeCategoryData } from './data/categoryData';
 import { recipeData } from './data/recipeData';
 import { ingredientData } from './data/ingredientData';
 import { directionData } from './data/directionData';
-import { exit } from 'process';
 // Seed file made with help from: https://www.youtube.com/watch?v=n9rtLhMN3cc
 
 const pool =  new Pool({
@@ -51,7 +53,7 @@ async function seed() {
     exit(0);
 }
 
-function seedRecipeCategories(recipes: SelectRecipe[], categories: SelectCategory[]) {
+function seedRecipeCategories(recipes: SelectRecipe[], categories: Category[]) {
     const recipeCategories = [];
     for (let i = 0; i < recipeCategoryData.length; i++) {
         const recipeCategory = recipeCategoryData[i];

@@ -1,6 +1,7 @@
-import { auth } from "@/lib/utils/auth";
 import { headers } from "next/headers";
 import Link from "next/link";
+
+import { auth } from "@/lib/utils/auth";
 import { getRecipesByAuthor } from "@/lib/services/recipeService";
 
 export default async function dashboardPage() {

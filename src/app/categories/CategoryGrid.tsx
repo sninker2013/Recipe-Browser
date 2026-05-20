@@ -1,12 +1,13 @@
-import { SelectCategory } from "@/lib/schema";
+import { Category } from "@/lib/schema";
 import { getAllCategories } from "@/lib/services/categoryService";
+
 import CategoryItem from "./CategoryCard";
 
 export default async function Categories() {
     const categoryItems: React.JSX.Element[] = []
-    const categories: SelectCategory[] = await getAllCategories(); 
+    const categories: Category[] = await getAllCategories(); 
 
-    categories.forEach((category: SelectCategory) => {
+    categories.forEach((category: Category) => {
         categoryItems.push(<CategoryItem
         category={category}
         key={`${category.id}`}/>)
