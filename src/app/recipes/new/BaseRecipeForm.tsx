@@ -125,7 +125,12 @@ export default function RecipeForm({initialCategories}: {initialCategories: Cate
             return;
         }
         await recipeActions.createIngredientsAction(ingredients, result.id);
-        await recipeActions.createDirectionsAction(directions, result.id)
+        await recipeActions.createDirectionsAction(directions, result.id);
+
+        const selectedCategoryIds = categories
+            .filter(category => category.isChecked)
+            .map(category => category.id)
+        await recipeActions.addCategoriesAction(result.id, selectedCategoryIds)
         router.push(`/recipes/${result.id}`);
         setLoading(false);
     }

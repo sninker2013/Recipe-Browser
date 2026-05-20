@@ -21,4 +21,4 @@ const ingredientsSchema = createInsertSchema(ingredientsTable);
 export type Ingredient = z.infer<typeof ingredientsSchema>
 
 const selectRecipeCategoriesSchema = createSelectSchema(recipeCategoriesTable);
-export type SelectRecipeCategories = z.infer<typeof selectRecipeCategoriesSchema>
+export type RecipeCategories = z.infer<typeof selectRecipeCategoriesSchema>

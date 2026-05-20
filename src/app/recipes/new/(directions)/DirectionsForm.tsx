@@ -1,6 +1,6 @@
 'use client'
 
-import { DirectionForm } from "../MainRecipeForm"
+import { DirectionForm } from "../BaseRecipeForm"
 import DirectionFormItem from "./DirectionFormItem";
 
 export default function DirectionsForm({

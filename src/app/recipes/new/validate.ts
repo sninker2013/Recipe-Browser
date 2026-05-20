@@ -1,4 +1,4 @@
-import { DirectionForm, IngredientForm, RecipeInput } from "./MainRecipeForm";
+import { DirectionForm, IngredientForm, RecipeInput } from "./BaseRecipeForm";
 
 export function validateRecipe(recipeInput: RecipeInput): string | undefined {
     // Prep time conversion and validation
@@ -67,7 +67,6 @@ export function validateDirections(directionsInput: DirectionForm[]): string | u
     if (directionsInput.length === 0) {
         return "At least 1 direction is required"
     }
-    console.log(directionsInput)
     for (const direction of directionsInput) {
         if (direction.instruction.trim() === "") {
             return "Direction cannot be empty"

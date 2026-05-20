@@ -1,4 +1,4 @@
-import { IngredientForm } from "../MainRecipeForm"
+import { IngredientForm } from "../BaseRecipeForm"
 
 export default function IngredientFormItem({
     updateIngredient,

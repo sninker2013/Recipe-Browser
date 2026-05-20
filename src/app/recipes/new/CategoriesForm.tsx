@@ -1,6 +1,6 @@
 'use client'
 
-import { CategoryForm } from "../MainRecipeForm"
+import { CategoryForm } from "./BaseRecipeForm"
 
 export default function CategoriesForm({
     categories,

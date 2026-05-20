@@ -1,7 +1,7 @@
 import { db } from "../db";
 import { recipesTable, recipeCategoriesTable } from "../db/schema/schema";
 import { SelectRecipe, InsertRecipe } from "../schema";
-import { eq, inArray } from "drizzle-orm";
+import { eq, getTableColumns } from "drizzle-orm";
 
 /**
  * Gets all the recipes from the database.
@@ -42,13 +42,12 @@ export async function getRecipeById(id: number): Promise<SelectRecipe> {
  */
 export async function getRecipesByCategoryId(categoryId: number): Promise<SelectRecipe[]> {
     try {
-            const recipeCategories = await db.select().from(recipeCategoriesTable)
-            .where(eq(recipeCategoriesTable.categoryId, categoryId))
-        
-            const recipeIds = recipeCategories.map(rc => rc.recipeId);
-        
-            return await db.select().from(recipesTable)
-            .where(inArray(recipesTable.id, recipeIds));
+        const recipes = await db.select(getTableColumns(recipesTable))
+        .from(recipeCategoriesTable)
+        .innerJoin(recipesTable, eq(recipeCategoriesTable.recipeId, recipesTable.id))
+        .where(eq(recipeCategoriesTable.categoryId, categoryId))
+
+        return recipes
     } catch (e) {
         throw new Error("Could not connect to the database. Make sure Docker is running.");
     }

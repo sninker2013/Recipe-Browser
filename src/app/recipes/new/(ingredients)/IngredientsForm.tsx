@@ -1,6 +1,6 @@
 'use client'
 
-import { IngredientForm } from "../MainRecipeForm";
+import { IngredientForm } from "../BaseRecipeForm";
 import IngredientFormItem from "./IngredientFormItem";
 
 export default function IngredientsForm({
