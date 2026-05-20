@@ -14,6 +14,7 @@ import { insertRecipeSchema, ingredientsSchema, directionsSchema } from "../sche
 import { auth } from "../utils/auth";
 import { addCategoriesToRecipe } from "../services/recipeCategoriesService";
 import { revalidatePath } from "next/cache";
+import z from "zod";
 
 /**
  * Takes a recipe input, transforms it to a Recipe object, and passes it to the createRecipe service. 
@@ -70,7 +71,7 @@ Promise<{ error: string } | Ingredient[]> {
         name: ingredient.name,
     }))
 
-    const result = ingredientsSchema.safeParse(ingredients)
+    const result = z.array(ingredientsSchema).safeParse(ingredients)
         if (!result.success) return { error: result.error.issues[0].message }
     try {
         return await createIngredients(ingredients)
@@ -96,7 +97,7 @@ Promise<{ error: string } | Direction[]> {
         instruction: direction.instruction
     }))
 
-    const result = directionsSchema.safeParse(directions)
+    const result = z.array(directionsSchema).safeParse(directions)
         if (!result.success) return { error: result.error.issues[0].message }
     try {
         return await createDirections(directions)
@@ -118,6 +119,7 @@ Promise<{error: string} | RecipeCategories[]> {
     // tests to see if all submitted ID's exist in the categories table.
     const allValid = categoryIds.every(id => validIds.has(id))
     if (!allValid) return { error: "Invalid category" }
+    
     try {
         return addCategoriesToRecipe(recipeId, categoryIds)
     } catch (e) {
