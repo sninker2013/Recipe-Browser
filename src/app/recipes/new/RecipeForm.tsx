@@ -79,7 +79,8 @@ export default function RecipeForm({initialCategories}: {initialCategories: Cate
     // Errors from client validation
     const [recipeError, setRecipeError] = useState<string>("");
     const [ingredientError, setIngredientError] = useState<string>("");
-    const [directionError, setDirectionError] = useState<string>("")
+    const [directionError, setDirectionError] = useState<string>("");
+    const [categoryError, setCategoryError] = useState<string>("");
 
     // Mostly used for disabling the submit button when the form is being submitted.
     const [loading, setLoading] = useState<boolean>(false)
@@ -119,23 +120,37 @@ export default function RecipeForm({initialCategories}: {initialCategories: Cate
 
         // If all validations pass, it creates a recipe and its associated ingredients, directions, and categories.
         setLoading(true)
-        const result = await recipeActions.createRecipeAction(recipeInput);
-        if ("error" in result) {
-            setRecipeError(result.error);
+        const recipe = await recipeActions.createRecipeAction(recipeInput);
+        if ("error" in recipe) {
+            setRecipeError(recipe.error);
             setLoading(false);
             return;
         }
-        await recipeActions.createIngredientsAction(ingredients, result.id);
-        await recipeActions.createDirectionsAction(directions, result.id);
-
+        const ingredientResult = await recipeActions.createIngredientsAction(ingredients, recipe.id);
+        if ("error" in ingredientResult) {
+            setIngredientError(ingredientResult.error);
+            setLoading(false);
+            return;
+        }
+        const directionResult = await recipeActions.createDirectionsAction(directions, recipe.id);
+        if ("error" in directionResult) {
+            setDirectionError(directionResult.error);
+            setLoading(false);
+            return;
+        }
         // Grabbing the ids of any categories that were selected.
         const selectedCategoryIds = categories
             .filter(category => category.isChecked)
             .map(category => category.id)
         if (selectedCategoryIds.length > 0){
-            await recipeActions.addCategoriesAction(result.id, selectedCategoryIds)
+            const categoryResult = await recipeActions.addCategoriesAction(recipe.id, selectedCategoryIds)
+            if ("error" in categoryResult) {
+                setCategoryError(categoryResult.error);
+                setLoading(false);
+                return;
+            }
         }
-        router.push(`/recipes/${result.id}`);
+        router.push(`/recipes/${recipe.id}`);
         setLoading(false);
     }
 
@@ -161,6 +176,7 @@ export default function RecipeForm({initialCategories}: {initialCategories: Cate
             categories={categories}
             setCategories={setCategories}>
         </CategoriesForm>
+        {categoryError && <p className="text-red-500 mt-4">{categoryError}</p>}
         <button type="submit" disabled={loading} 
             className="rounded bg-blue-400 p-3 pl-7 pr-7 m-3 w-40 place-self-center">
             {loading ? "Submitting..." : "Submit"}

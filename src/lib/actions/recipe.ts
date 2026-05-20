@@ -5,15 +5,20 @@ import { headers } from "next/headers";
 
 import { DirectionForm, IngredientForm, RecipeInput } from "@/app/recipes/new/RecipeForm";
 
-import { Category, Direction, Ingredient, InsertRecipe, SelectRecipe } from "../schema";
+import { Category, Direction, Ingredient, InsertRecipe, RecipeCategories, SelectRecipe } from "../schema";
 import { createRecipe } from "../services/recipeService";
 import { createIngredients } from "../services/ingredientsService";
 import { createDirections } from "../services/directionsService";
 import { getAllCategories } from "../services/categoryService";
-import { insertRecipeSchema } from "../schema";
+import { insertRecipeSchema, ingredientsSchema, directionsSchema } from "../schema";
 import { auth } from "../utils/auth";
 import { addCategoriesToRecipe } from "../services/recipeCategoriesService";
 
+/**
+ * Takes a recipe input, transforms it to a Recipe object, and passes it to the createRecipe service. 
+ * @param recipeInput - All of the data submitted from the form in an object
+ * @returns either the successful Recipe object or an error message.
+ */
 export async function createRecipeAction(recipeInput: RecipeInput): Promise<{ error: string } | SelectRecipe> {
 
     const session = await auth.api.getSession({ headers: await headers() });
@@ -43,7 +48,15 @@ export async function createRecipeAction(recipeInput: RecipeInput): Promise<{ er
     return await createRecipe(result.data);
 }
 
-export async function createIngredientsAction(ingredientsInput: IngredientForm[], recipeId: number): Promise<Ingredient[]> {
+/**
+ * Takes the ingredients form input and the created recipeId, transforms them to Ingredient objects,
+ * and passes those the the createIngredients service.
+ * @param ingredientsInput - The form inputs for ingredients 
+ * @param recipeId - The ID of the recipe these ingredients belong to.
+ * @returns - an array of Ingredients that were added to the db.
+ */
+export async function createIngredientsAction(ingredientsInput: IngredientForm[], recipeId: number): 
+Promise<{ error: string } | Ingredient[]> {
     const ingredients: Ingredient[] = 
     ingredientsInput.map((ingredient, index) => ({
         recipeId: recipeId,
@@ -52,16 +65,30 @@ export async function createIngredientsAction(ingredientsInput: IngredientForm[]
         name: ingredient.name,
     }))
 
+    const result = ingredientsSchema.safeParse(ingredients)
+        if (!result.success) return { error: result.error.issues[0].message }
+
     return await createIngredients(ingredients)
 }
 
-export async function createDirectionsAction(directionsInput: DirectionForm[], recipeId: number): Promise<Direction[]> {
+/**
+ * Takes the directions form input and the created recipeId, transforms them to Direction objects,
+ * and passes those the the createDirections service.
+ * @param ingredientsInput - The form inputs for directions 
+ * @param recipeId - The ID of the recipe these directions belong to.
+ * @returns - an array of Directions that were added to the db.
+ */
+export async function createDirectionsAction(directionsInput: DirectionForm[], recipeId: number):
+Promise<{ error: string } | Direction[]> {
     const directions: Direction[] = 
     directionsInput.map((direction, index) => ({
         recipeId: recipeId,
         position: index + 1,
         instruction: direction.instruction
     }))
+
+    const result = directionsSchema.safeParse(directions)
+        if (!result.success) return { error: result.error.issues[0].message }
 
     return await createDirections(directions)
 }
@@ -70,6 +97,14 @@ export async function getAllCategoriesAction(): Promise<Category[]> {
     return getAllCategories()
 }
 
-export async function addCategoriesAction(recipeId: number, categoryIds: number[]) {
+export async function addCategoriesAction(recipeId: number, categoryIds: number[]):
+Promise<{error: string} | RecipeCategories[]> {
+    const validCategories = await getAllCategories()
+    const validIds = new Set(validCategories.map(c => c.id))
+    
+    // tests to see if all submitted ID's exist in the categories table.
+    const allValid = categoryIds.every(id => validIds.has(id))
+    if (!allValid) return { error: "Invalid category" }
+
     return addCategoriesToRecipe(recipeId, categoryIds)
 }
