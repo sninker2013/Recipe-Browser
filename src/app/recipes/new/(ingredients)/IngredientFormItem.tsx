@@ -1,11 +1,11 @@
-import { IngredientInput } from "../RecipeForm"
+import { IngredientForm } from "../MainRecipeForm"
 
 export default function IngredientFormItem({
     updateIngredient,
     deleteIngredient,
     id,
 }: {
-    updateIngredient: (id: number, field: keyof IngredientInput, value: string) => void
+    updateIngredient: (id: number, field: keyof IngredientForm, value: string) => void
     deleteIngredient: (id: number) => void
     id: number
 }) {

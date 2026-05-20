@@ -1,16 +1,16 @@
 'use client'
 
-import { IngredientInput } from "../RecipeForm";
+import { IngredientForm } from "../MainRecipeForm";
 import IngredientFormItem from "./IngredientFormItem";
 
 export default function IngredientsForm({
     ingredients,
     setIngredients
 }: {
-    ingredients: IngredientInput[];
-    setIngredients: React.Dispatch<React.SetStateAction<IngredientInput[]>>;
+    ingredients: IngredientForm[];
+    setIngredients: React.Dispatch<React.SetStateAction<IngredientForm[]>>;
 }) {
-    const updateIngredient = (id: number, field: keyof IngredientInput, value: string) => {
+    const updateIngredient = (id: number, field: keyof IngredientForm, value: string) => {
         setIngredients(ingredients.map(ingredient => (
             ingredient.id === id ? { ...ingredient, [field]: value } : ingredient
         )));

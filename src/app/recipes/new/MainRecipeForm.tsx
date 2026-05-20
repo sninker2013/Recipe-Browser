@@ -7,6 +7,9 @@ import { useRouter } from "next/navigation";
 import * as recipeActions from "@/lib/actions/recipe";
 import IngredientsForm from "./(ingredients)/IngredientsForm";
 import DirectionsForm from "./(directions)/DirectionsForm";
+import GeneralInfo from "./GeneralInfoForm";
+import CategoriesForm from "./(ingredients)/CategoriesForm";
+import { Category } from "@/lib/schema";
 
 /* 
 This type will be used to validate the recipe form and will be converted into the correct format
@@ -27,20 +30,23 @@ Since the ingredient form won't have access to the recipe ID, making the ingredi
 its own type will simplify the form process and we will convert that into an Ingredients array in its action.
 Additionally, A generated id is required to reference which ingredient to delete when the button is pressed.
 */
-export type IngredientInput = {
+export type IngredientForm = {
     id: number,
     name: string,
     amount: string
 }
 
 // See ingredients explanation above.
-export type DirectionInput = {
+export type DirectionForm = {
     id: number,
     instruction: string
 }
 
+export interface CategoryForm extends Category {
+    isChecked: boolean
+}
 
-export default function RecipeForm() {
+export default function RecipeForm({initialCategories}: {initialCategories: CategoryForm[]}) {
 
     // Recipe from states
     const [title, setTitle] = useState<string>("");
@@ -53,8 +59,10 @@ export default function RecipeForm() {
     
     // Ingredients and direction form states
     // We initialize one value so that there is an empty form element on a new form load.
-    const [ingredientsInput, setIngredientsInput] = useState<IngredientInput[]>([{id: Date.now(), name: "", amount: ""}])
-    const [directionsInput, setDirectionsInput] = useState<DirectionInput[]>([{id: Date.now(), instruction: ""}])
+    const [ingredients, setIngredients] = useState<IngredientForm[]>([{id: Date.now(), name: "", amount: ""}])
+    const [directions, setDirections] = useState<DirectionForm[]>([{id: Date.now(), instruction: ""}])
+
+    const [categories, setCategories] = useState<CategoryForm[]>(initialCategories)
 
     // Errors
     const [recipeError, setRecipeError] = useState<string>("");
@@ -63,7 +71,6 @@ export default function RecipeForm() {
 
     // Mostly used for disabling the submit button when the form is being submitted.
     const [loading, setLoading] = useState<boolean>(false)
-
     const router = useRouter()
 
     // Displays Loading page if the session is pending
@@ -94,20 +101,22 @@ export default function RecipeForm() {
         }
 
         // Ingredients validation
-        const ingredientErr = validate.validateIngredients(ingredientsInput)
+        const ingredientErr = validate.validateIngredients(ingredients)
         if (ingredientErr) {
             setIngredientError(ingredientErr);
             setLoading(false);
             return;
         }
 
-        const directionErr = validate.validateDirections(directionsInput)
+        // Directions validation
+        const directionErr = validate.validateDirections(directions)
         if (directionErr) {
             setDirectionError(directionErr)
             setLoading(false);
             return;
         }
 
+        // If all validations pass, it creates a recipe and its associated ingredients, directions, and categories.
         setLoading(true)
         const result = await recipeActions.createRecipeAction(recipeInput);
         if ("error" in result) {
@@ -115,72 +124,43 @@ export default function RecipeForm() {
             setLoading(false);
             return;
         }
-        await recipeActions.createIngredientsAction(ingredientsInput, result.id);
-        await recipeActions.createDirectionsAction(directionsInput, result.id)
+        await recipeActions.createIngredientsAction(ingredients, result.id);
+        await recipeActions.createDirectionsAction(directions, result.id)
         router.push(`/recipes/${result.id}`);
         setLoading(false);
     }
 
     return(<form className=" min-w-4xl max-w-5xl mx-auto mt-10 p-6 border rounded flex flex-col" onSubmit={handleSubmit}>
-        <h3 className="text-2xl font-bold mb-6 text-center">Information</h3>
-        <section className="grid grid-cols-[auto_1fr] gap-y-3 items-center">
-            <h3 className="text-xl text-left w-32 font-bold mr-2">Title:</h3>
-            <input type="text" id="title" name="title"
-                onChange={e => setTitle(e.target.value)}
-                className="border border-black rounded max-w-xs">
-            </input>
-
-            <h3 className="text-xl text-left w-32 font-bold mr-2 ">Description:</h3>
-            <textarea rows={4} id="description" name="description"
-                onChange={e => setDescription(e.target.value)}
-                className="w-full resize-none border border-black rounded">
-            </textarea>
-
-            <h3 className="text-xl text-left w-32 font-bold mr-2">Prep Time:</h3>
-            <div className="flex">
-                <input type="text" maxLength={2} id="prepHrs" name="prepHrs"
-                    onChange={e => setPrepHrs(e.target.value)}
-                    className="w-6 border border-black rounded mr-1 text-center">
-                </input>
-                <p className="mr-1">hrs</p>
-                <input type="text" maxLength={2} id="prepMins" name="prepMins"
-                    onChange={e => setPrepMins(e.target.value)}
-                    className="w-6 border border-black rounded mr-1 text-center">
-                </input>
-                <p className="mr-1">mins</p>
-            </div>
-            <h3 className="text-xl text-left w-32 font-bold mr-2">Cook Time:</h3>
-            <div className="flex">
-                <input type="text" maxLength={2} id="cookHrs" name="cookHrs"
-                    onChange={e => setCookHrs(e.target.value)}
-                    className="w-6 border border-black rounded mr-1 text-center">
-                </input>
-                <p className="mr-1">hrs</p>
-                <input type="text" maxLength={2} id="cookMins" name="cookMins"
-                    onChange={e => setCookMins(e.target.value)}
-                    className="w-6 border border-black rounded mr-1 text-center">
-                </input>
-                <p className="mr-1">mins</p>
-            </div>
-            <h3 className="text-xl text-left w-32 font-bold mr-2">Servings:</h3>
-            <div className="flex">
-            <input type="text" maxLength={2} id="servings" name="servings"
-                onChange={e => setServings(e.target.value)}
-                className="w-6 border border-black rounded mr-1 text-center"></input>
-            <p className="ml-1">People</p>
-            </div>
-        </section>
+        <GeneralInfo
+            setTitle={setTitle}
+            setDescription={setDescription}
+            setPrepHrs={setPrepHrs}
+            setPrepMins={setPrepMins}
+            setCookHrs={setCookHrs}
+            setCookMins={setCookMins}
+            setServings={setServings}>
+        </GeneralInfo>
         {recipeError && <p className="text-red-500 mt-4">{recipeError}</p>}
+
         <IngredientsForm 
-            ingredients={ingredientsInput}
-            setIngredients={setIngredientsInput}>
+            ingredients={ingredients}
+            setIngredients={setIngredients}>
         </IngredientsForm>
         {ingredientError && <p className="text-red-500 mt-4">{ingredientError}</p>}
+
         <DirectionsForm
-            directions={directionsInput}
-            setDirections={setDirectionsInput}> 
+            directions={directions}
+            setDirections={setDirections}> 
         </DirectionsForm>
         {directionError && <p className="text-red-500 mt-4">{directionError}</p>}
-        <button type="submit" disabled={loading} className="rounded bg-blue-400 p-3 pl-7 pr-7 m-3 w-40 place-self-center">{loading ? "Submitting..." : "Submit"}</button>
+
+        <CategoriesForm
+            categories={categories}
+            setCategories={setCategories}>
+        </CategoriesForm>
+        <button type="submit" disabled={loading} 
+            className="rounded bg-blue-400 p-3 pl-7 pr-7 m-3 w-40 place-self-center">
+            {loading ? "Submitting..." : "Submit"}
+        </button>
     </form>)
 }

@@ -1,5 +1,4 @@
-import { DirectionInput, IngredientInput, RecipeInput } from "./RecipeForm";
-import { insertRecipeSchema } from "@/lib/schema";
+import { DirectionForm, IngredientForm, RecipeInput } from "./MainRecipeForm";
 
 export function validateRecipe(recipeInput: RecipeInput): string | undefined {
     // Prep time conversion and validation
@@ -53,7 +52,7 @@ export function validateRecipe(recipeInput: RecipeInput): string | undefined {
     }
 }
 
-export function validateIngredients(ingredientsInput: IngredientInput[]): string | undefined {
+export function validateIngredients(ingredientsInput: IngredientForm[]): string | undefined {
     if (ingredientsInput.length === 0) {
         return "At least 1 ingredient is required"
     }
@@ -64,7 +63,7 @@ export function validateIngredients(ingredientsInput: IngredientInput[]): string
     }
 }
 
-export function validateDirections(directionsInput: DirectionInput[]): string | undefined {
+export function validateDirections(directionsInput: DirectionForm[]): string | undefined {
     if (directionsInput.length === 0) {
         return "At least 1 direction is required"
     }

@@ -1,14 +1,14 @@
 'use client'
 
-import { DirectionInput } from "../RecipeForm"
+import { DirectionForm } from "../MainRecipeForm"
 import DirectionFormItem from "./DirectionFormItem";
 
 export default function DirectionsForm({
     directions,
     setDirections
 }: {
-    directions: DirectionInput[];
-    setDirections: React.Dispatch<React.SetStateAction<DirectionInput[]>>;
+    directions: DirectionForm[];
+    setDirections: React.Dispatch<React.SetStateAction<DirectionForm[]>>;
 }) {
     const updateDirection = (id: number, instruction: string) => {
         setDirections(directions.map((direction) => 
