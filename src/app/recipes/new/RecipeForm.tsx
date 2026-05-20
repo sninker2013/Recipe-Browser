@@ -13,7 +13,6 @@ import DirectionsForm from "./_components/DirectionsForm";
 import GeneralInfo from "./_components/GeneralInfoForm";
 import CategoriesForm from "./_components/CategoriesForm";
 
-
 /* 
 This type will be used to validate the recipe form and will be converted into the correct format
 after validation within the recipe action.
@@ -150,6 +149,8 @@ export default function RecipeForm({initialCategories}: {initialCategories: Cate
                 return;
             }
         }
+        // Revalidates any paths this recipe may appear in.
+        await recipeActions.finalizeRecipeAction()
         router.push(`/recipes/${recipe.id}`);
         setLoading(false);
     }

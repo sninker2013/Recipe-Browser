@@ -13,6 +13,7 @@ import { getAllCategories } from "../services/categoryService";
 import { insertRecipeSchema, ingredientsSchema, directionsSchema } from "../schema";
 import { auth } from "../utils/auth";
 import { addCategoriesToRecipe } from "../services/recipeCategoriesService";
+import { revalidatePath } from "next/cache";
 
 /**
  * Takes a recipe input, transforms it to a Recipe object, and passes it to the createRecipe service. 
@@ -44,8 +45,12 @@ export async function createRecipeAction(recipeInput: RecipeInput): Promise<{ er
     if (!result.success) {
         return { error: result.error.issues[0].message };
     }
-    
-    return await createRecipe(result.data);
+    try {
+        return await createRecipe(result.data);
+    } catch (e) {
+        console.error(e)
+        return { error: "Failed to save recipe" }
+    }
 }
 
 /**
@@ -67,8 +72,12 @@ Promise<{ error: string } | Ingredient[]> {
 
     const result = ingredientsSchema.safeParse(ingredients)
         if (!result.success) return { error: result.error.issues[0].message }
-
-    return await createIngredients(ingredients)
+    try {
+        return await createIngredients(ingredients)
+    } catch (e) {
+        console.error(e)
+        return { error: "Failed to save ingredients" }   
+    }
 }
 
 /**
@@ -89,8 +98,12 @@ Promise<{ error: string } | Direction[]> {
 
     const result = directionsSchema.safeParse(directions)
         if (!result.success) return { error: result.error.issues[0].message }
-
-    return await createDirections(directions)
+    try {
+        return await createDirections(directions)
+    } catch (e) {
+        console.error(e)
+        return { error: "Failed to save directions" }
+    }
 }
 
 export async function getAllCategoriesAction(): Promise<Category[]> {
@@ -105,6 +118,19 @@ Promise<{error: string} | RecipeCategories[]> {
     // tests to see if all submitted ID's exist in the categories table.
     const allValid = categoryIds.every(id => validIds.has(id))
     if (!allValid) return { error: "Invalid category" }
+    try {
+        return addCategoriesToRecipe(recipeId, categoryIds)
+    } catch (e) {
+        console.error(e)
+        return { error: "Failed to save recipe categories" }
+    }
+}
 
-    return addCategoriesToRecipe(recipeId, categoryIds)
+/**
+ * revalidates any paths that may use the new created recipe.
+ * This needs to be its own action because of the other split up actions.
+ */
+export async function finalizeRecipeAction() {
+    revalidatePath("/recipes")
+    revalidatePath("/categories/[slug]", "page")
 }

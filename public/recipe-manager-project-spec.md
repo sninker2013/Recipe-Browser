@@ -413,7 +413,7 @@ Use this checklist to track your progress toward completing the minimum viable p
 - [/] Can remove direction/step fields
 - [/] Can select multiple categories
 - [/] Client-side validation works
-- [ ] Server-side validation works
+- [/] Server-side validation works
 - [/] Loading state displays during submission
 - [/] Recipe creates successfully with all relationships
 - [/] Ingredients save with correct order
@@ -424,15 +424,15 @@ Use this checklist to track your progress toward completing the minimum viable p
 - [/] Created recipe shows creator's name
 
 ### Code Quality & Organization
-- [ ] Server Components used for data fetching
-- [ ] Client Components used only when needed
-- [ ] Server Actions in `/lib/actions/`
-- [ ] Components organized logically
-- [ ] RESTful routing conventions followed
-- [ ] Naming conventions consistent
-- [ ] TypeScript types used appropriately
-- [ ] Regular Git commits with good messages
-- [ ] `.env.local` not committed to repository
+- [/] Server Components used for data fetching
+- [/] Client Components used only when needed
+- [/] Server Actions in `/lib/actions/`
+- [/] Components organized logically
+- [/] RESTful routing conventions followed
+- [/] Naming conventions consistent
+- [/] TypeScript types used appropriately
+- [/] Regular Git commits with good messages
+- [/] `.env.local` not committed to repository
 
 ### Documentation
 - [/] README.md created
