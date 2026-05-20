@@ -5,7 +5,6 @@ export function validateRecipe(recipeInput: RecipeInput): string | undefined {
     if (recipeInput.prepHrs === "" && recipeInput.prepMins === "") {
         return "Prep time cannot be empty"
     }
-
     const prepHrsNum = Number(recipeInput.prepHrs)
     const prepMinsNum = Number(recipeInput.prepMins)
     if (isNaN(prepHrsNum) || isNaN(prepMinsNum)) {
@@ -15,7 +14,7 @@ export function validateRecipe(recipeInput: RecipeInput): string | undefined {
         return "Prep time hours must be less than 100"
     }
     if (prepMinsNum >= 60) {
-        return "Prep time minutes needs to be less than 60"
+        return "Prep time minutes must be less than 60"
     }
 
     // Cook time conversion and validation
@@ -32,7 +31,7 @@ export function validateRecipe(recipeInput: RecipeInput): string | undefined {
         return "Cook time hours must be less than 100"
     }
     if (cookMinsNum >= 60) {
-        return "Cook time minutes needs to be less than 60"
+        return "Cook time minutes must be less than 60"
     }
 
     // Servings validation
