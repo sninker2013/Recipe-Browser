@@ -8,7 +8,7 @@ import * as recipeActions from "@/lib/actions/recipe";
 import IngredientsForm from "./(ingredients)/IngredientsForm";
 import DirectionsForm from "./(directions)/DirectionsForm";
 import GeneralInfo from "./GeneralInfoForm";
-import CategoriesForm from "./(ingredients)/CategoriesForm";
+import CategoriesForm from "./CategoriesForm";
 import { Category } from "@/lib/schema";
 
 /* 
