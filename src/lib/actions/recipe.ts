@@ -107,10 +107,6 @@ Promise<{ error: string } | Direction[]> {
     }
 }
 
-export async function getAllCategoriesAction(): Promise<Category[]> {
-    return getAllCategories()
-}
-
 export async function addCategoriesAction(recipeId: number, categoryIds: number[]):
 Promise<{error: string} | RecipeCategories[]> {
     const validCategories = await getAllCategories()

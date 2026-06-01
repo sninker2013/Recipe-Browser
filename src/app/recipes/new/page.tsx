@@ -1,4 +1,4 @@
-import { getAllCategoriesAction } from "@/lib/actions/recipe";
+import { getAllCategories } from "@/lib/services/categoryService";
 
 import RecipeForm from "./RecipeForm";
 
