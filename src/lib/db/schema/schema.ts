@@ -4,7 +4,7 @@ export const recipesTable = table("recipes", {
     id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
     title: varchar("title").notNull(),
     // This is only really needed to seed the recipeCategories
-    // The ID changes in subsequent seeds so we cannot use that to seed them.
+    // The ID changes in subsequent seeds so we cannot use it to seed them.
     slug: varchar("slug").notNull(), 
     description: varchar("description").notNull(),
     author: varchar("author").notNull(),

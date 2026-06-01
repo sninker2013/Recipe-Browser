@@ -4,7 +4,7 @@
 
 Loading behavior is unrefined - Besides it being a simple "loading..." <p> element, sometimes the loading element will display for a bit while the recipe card elements are already displayed. Haven't figured out why yet.
 
-Since the client side issues are checked first, the errors for the recipe form are displayed in an order that is unintuitive, for example, if leaves all of the "information" section blank, an error saying that "servings cannot be blank"
+Since the client side issues are checked first, the errors for the recipe form are displayed in an order that is unintuitive, for example, if leaves all of the "information" section blank, an error saying that "servings cannot be blank", this is due to the title and description validation being tied to the db and running at the server level.
 
 ## Visual Issues
 

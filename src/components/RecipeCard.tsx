@@ -9,9 +9,9 @@ export function RecipeItem({recipe}: {recipe: SelectRecipe}) {
             <section className="p-6 m-5 bg-gray-200 rounded-xl hover:shadow-md hover:-translate-y-1 grid grid-cols-3 cursor-pointer h-full">
                 <h3 className="font-bold col-span-3 text-center">{recipe.title}</h3>
                 <p className="col-span-3 text-center">{recipe.author}</p>
-                <p className="p-1">Prep Time:<br></br>{formatInterval(recipe.prepTime)}</p>
-                <p className="p-1">Cook Time:<br></br>{formatInterval(recipe.cookTime)}</p>
-                <p className="p-1">Servings:<br></br>{recipe.servings}</p>
+                <p className="p-1 text-center">Prep Time:<br></br>{formatInterval(recipe.prepTime)}</p>
+                <p className="p-1 text-center">Cook Time:<br></br>{formatInterval(recipe.cookTime)}</p>
+                <p className="p-1 text-center">Servings:<br></br>{recipe.servings}</p>
             </section>
         </Link>
     )

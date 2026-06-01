@@ -22,6 +22,9 @@ export default function GeneralInfo({
             className="w-full resize-none border border-black rounded">
         </textarea>
 
+    </section>
+    <p className="italic m-4 text-gray-500 text-left">Prep time and Cook time default to 0 if left blank</p>
+    <section className="grid grid-cols-[auto_1fr] gap-y-3 items-center">
         <h3 className="text-xl text-left w-32 font-bold mr-2">Prep Time:</h3>
         <div className="flex">
             <input type="text" maxLength={2} id="prepHrs" name="prepHrs"

@@ -15,7 +15,7 @@ import CategoriesForm from "./_components/CategoriesForm";
 
 /* 
 This type will be used to validate the recipe form and will be converted into the correct format
-after validation within the recipe action.
+to insert into the db after validation within the recipe action.
 */
 export type RecipeInput = {
     title: string,
@@ -44,13 +44,18 @@ export type DirectionForm = {
     instruction: string
 }
 
+// See explanation in page.tsx
 export interface CategoryForm extends Category {
     isChecked: boolean
 }
 
+/**
+ * Builds all the form components and holds the submission handling and errors for the form.
+ * @param initialCategories - The categories that a recipe can be assigned to. (declared in page.tsx)
+ */
 export default function RecipeForm({initialCategories}: {initialCategories: CategoryForm[]}) {
 
-    // Recipe form states
+    // General recipe info form states
     const [recipeInput, setRecipeInput] = useState<RecipeInput>({
         title: "",
         description: "",
@@ -61,7 +66,7 @@ export default function RecipeForm({initialCategories}: {initialCategories: Cate
         servings: ""
     })
     
-    // Ingredients and direction form states
+    // Ingredients and Directions form states
     // We initialize one value so that there is an empty form element on a new form load.
     const [ingredients, setIngredients] = useState<IngredientForm[]>([])
     const [directions, setDirections] = useState<DirectionForm[]>([])
@@ -72,16 +77,17 @@ export default function RecipeForm({initialCategories}: {initialCategories: Cate
     setDirections([{id: Date.now(), instruction: ""}])
 }, [])
 
-    // Categories is different from the others as we need the categories that are predefined
+    // Categories is different from the others as we need to get the categories that have been predefined
     const [categories, setCategories] = useState<CategoryForm[]>(initialCategories)
 
-    // Errors from client validation
+    // Errors from client-side validation
     const [recipeError, setRecipeError] = useState<string>("");
     const [ingredientError, setIngredientError] = useState<string>("");
     const [directionError, setDirectionError] = useState<string>("");
     const [categoryError, setCategoryError] = useState<string>("");
 
-    // Mostly used for disabling the submit button when the form is being submitted.
+    // Mostly used for disabling the submit button and showing the user 
+    // when the form is in the process of being submitted.
     const [loading, setLoading] = useState<boolean>(false)
 
     const router = useRouter()
@@ -97,6 +103,7 @@ export default function RecipeForm({initialCategories}: {initialCategories: Cate
         setRecipeError("");
         setIngredientError("");
 
+        // General recipe info validation
         const recipeErr = validate.validateRecipe(recipeInput);
         if (recipeErr) {
             setRecipeError(recipeErr);
