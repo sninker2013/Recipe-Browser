@@ -47,7 +47,9 @@ It was recommended to use BetterAuth for this project if I am not used to auth i
 ### Frontend
 
 Next.js
+
 React 19
+
 Typescript
 
 ### Styling
@@ -57,6 +59,7 @@ Tailwind CSS
 ### Database / ORM
 
 drizzle ORM
+
 PostgreSQL
 
 ### Authentication
@@ -70,6 +73,9 @@ zod
 ### Runtime
 
 Node.js
+
 eslint
+
 tsx
+
 dotenv
