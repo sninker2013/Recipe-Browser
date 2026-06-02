@@ -436,9 +436,9 @@ Use this checklist to track your progress toward completing the minimum viable p
 
 ### Documentation
 - [/] README.md created
-- [ ] Setup instructions documented
-- [ ] Technology stack listed
-- [ ] Features documented
+- [/] Setup instructions documented
+- [/] Technology stack listed
+- [/] Features documented
 - [/] Known issues noted
 
 ---
